@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ch.arkeine.smartgm" >
+
+    <application
+        android:name=".SmartGmApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".view.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.GameSettingActivity"
+            android:label="@string/activity_game_setting_main_title" />
+        <activity
+            android:name=".view.DiceSettingActivity"
+            android:label="@string/activity_dice_setting_main_title" />
+        <activity
+            android:name=".view.TableSettingActivity"
+            android:label="@string/activity_table_setting_main_title" />
+        <activity
+            android:name=".view.WikiEditionActivity"
+            android:label="@string/title_activity_wiki_edition" />
+        <activity
+            android:name=".view.CharacterSettingActivity"
+            android:label="@string/activity_character_setting_main_title" />
+        <activity
+            android:name=".view.StatisticSettingActivity"
+            android:label="@string/activity_statistic_setting_main_title" />
+    </application>
+
+</manifest>

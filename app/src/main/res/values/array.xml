@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="action_list_main_activity">
+        <item>Edit</item>
+        <item>Delete</item>
+    </array>
+    <array name="action_list_table_setting_activity">
+        <item>Edit name</item>
+        <item>Edit weight</item>
+        <item>Delete</item>
+    </array>
+</resources>

@@ -1,0 +1,78 @@
+<resources>
+    <!-- General setting -->
+    <string name="app_name">Smart GM</string>
+    <string name="message_soon">This will coming soon</string>
+
+    <!-- About the drawer -->
+    <string name="drawer_world_separator">World</string>
+    <string name="drawer_character_separator">Character</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Title of the functionnality provide by the app-->
+    <string name="func_game_title">Game</string>
+    <string name="func_dice_title">Dice</string>
+    <string name="func_table_title">Table</string>
+    <string name="func_wiki_title">Wiki</string>
+    <string name="func_character_title">Character</string>
+    <string name="func_statistic_title">Statistic</string>
+    <string name="func_inventory_title">Inventory</string>
+
+    <!-- Title of the buttons -->
+    <string name="button_ok">Ok</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_close">Close</string>
+    <string name="button_roll">Roll</string>
+    <string name="button_up">+</string>
+    <string name="button_down">-</string>
+
+    <!-- Title of the menu item -->
+    <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+
+    <!-- Text in the dice adapter -->
+    <string name="adapter_dice_suffix">faces</string>
+    <string name="adapter_dice_prefix">Roll on</string>
+    <!-- Text in the dice adapter -->
+    <string name="adapter_table_error_title">No item</string>
+    <string name="adapter_table_error_content">Table is empty !</string>
+
+    <!-- Activity about main -->
+    <string name="activity_main_dialog_edit_delete_title">Action on item</string>
+    <!-- Activity about game -->
+    <string name="activity_game_setting_main_title">Game setting</string>
+    <!-- Activity about dice -->
+    <string name="activity_dice_setting_main_title">Dice setting</string>
+    <string name="activity_dice_setting_nbface_title">Number of faces</string>
+    <!-- Activity about table -->
+    <string name="activity_table_setting_main_title">Table setting</string>
+    <string name="activity_table_setting_name_title">Name</string>
+    <string name="activity_table_setting_items_title">Items</string>
+    <string name="activity_table_setting_items_name">Name</string>
+    <string name="activity_table_setting_items_weight">Weight</string>
+    <string name="activity_table_setting_dialog_edit_delete_title">Action on item</string>
+    <string name="activity_table_setting_dialog_set_name_title">Set item name</string>
+    <string name="activity_table_setting_item_default_name">No set</string>
+    <!-- Activity about character -->
+    <string name="activity_character_setting_main_title">Character setting</string>
+    <string name="activity_character_setting_name">Name</string>
+    <!-- Activity about statistic -->
+    <string name="activity_statistic_setting_main_title">Statistic setting</string>
+    <string name="activity_statistic_setting_name">Name</string>
+    <string name="activity_statistic_setting_min">Minimum value</string>
+    <string name="activity_statistic_setting_max">Maximum value</string>
+    <string name="activity_statistic_setting_current">Current value</string>
+
+    <!-- Activity about numberpicker -->
+    <string name="components_numberpicker_minimal_value">Minimal value is</string>
+    <string name="components_numberpicker_maximal_value">Maximal value is</string>
+    <string name="components_numberpicker_numeric_only">Only numeric value is allowed</string>
+
+    <string name="add_game_dialog_title">Add Game</string>
+    <string name="add_game_dialog_description">Enter the name of the game</string>
+    <string name="title_activity_wiki_edition">WikiEditionActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+</resources>

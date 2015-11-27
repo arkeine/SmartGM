@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_game"
+            android:icon="@drawable/planet"
+            android:title="@string/func_game_title" />
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/sub_options_game">
+        <item android:title="@string/drawer_world_separator">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_dice"
+                        android:icon="@drawable/dice"
+                        android:title="@string/func_dice_title" />
+                    <item
+                        android:id="@+id/nav_table"
+                        android:icon="@drawable/question"
+                        android:title="@string/func_table_title" />
+                    <item
+                        android:id="@+id/nav_wiki"
+                        android:icon="@drawable/sheet"
+                        android:title="@string/func_wiki_title" />
+                    <item
+                        android:id="@+id/nav_character"
+                        android:icon="@drawable/character"
+                        android:title="@string/func_character_title" />
+                </group>
+            </menu>
+        </item>
+        <group
+            android:checkableBehavior="single"
+            android:id="@+id/sub_options_character">
+            <item android:title="@string/drawer_character_separator">
+                <menu>
+                    <group android:checkableBehavior="single">
+                        <item
+                            android:id="@+id/nav_statistic"
+                            android:icon="@drawable/statistic"
+                            android:title="@string/func_statistic_title" />
+                        <item
+                            android:id="@+id/nav_inventory"
+                            android:icon="@android:drawable/ic_menu_send"
+                            android:title="@string/func_inventory_title" />
+                    </group>
+                </menu>
+            </item>
+        </group>
+    </group>
+</menu>
