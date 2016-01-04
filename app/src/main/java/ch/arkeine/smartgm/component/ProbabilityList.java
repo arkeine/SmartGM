@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Arkeine on 17.11.2015.
+ * This class allow to store item (like a list) and pick a random item from the list based on
+ * the item weight (the item with a big weight will be picked more often)
+ * @param <T> Type of content. The items object must implement the ProbabilityWeight interface
  */
-public class ProbabilityList<T extends ProbabilityWeight> extends ArrayList<T> {
+public class ProbabilityList<T extends ProbabilityList.ProbabilityWeight> extends ArrayList<T> {
 
     /* ============================================ */
     // CONSTRUCTOR
@@ -120,4 +122,11 @@ public class ProbabilityList<T extends ProbabilityWeight> extends ArrayList<T> {
     private double currentWeight;
     private List<Double> listSumWeight;
 
+    /* ============================================ */
+    // INTERNAL CLASS / INTERFACE
+    /* ============================================ */
+
+    public interface ProbabilityWeight {
+        double getWeight();
+    }
 }

@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.object.Table;
-import ch.arkeine.smartgm.model.object.TableItem;
+import ch.arkeine.smartgm.model.dao.object.Table;
+import ch.arkeine.smartgm.model.dao.object.TableItem;
 
 /**
  * Created by arkeine on 11/9/15.
@@ -76,8 +76,8 @@ public class TableAdapter extends ArrayAdapter<Table> {
 
                 if(item != null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle(item.getTitle())
-                            .setMessage(item.getDescription())
+                    builder.setTitle(table.getName())
+                            .setMessage(item.getName())
                             .setNeutralButton(R.string.button_close, null);
                     builder.show();
                 }else{

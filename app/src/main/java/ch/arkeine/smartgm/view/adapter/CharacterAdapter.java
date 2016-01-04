@@ -10,18 +10,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.object.Character;
+import ch.arkeine.smartgm.model.dao.object.Entity;
 
 /**
  * Created by arkeine on 11/9/15.
  */
-public class CharacterAdapter extends ArrayAdapter<Character> {
+public class CharacterAdapter extends ArrayAdapter<Entity> {
 
     /* ============================================ */
     // CONSTRUCTOR
     /* ============================================ */
 
-    public CharacterAdapter(Context context, List<Character> content) {
+    public CharacterAdapter(Context context, List<Entity> content) {
         super(context, resource, content);
         this.content = content;
         this.context = context;
@@ -52,7 +52,7 @@ public class CharacterAdapter extends ArrayAdapter<Character> {
         }
 
         // Item to draw
-        Character toDraw = content.get(position);
+        Entity toDraw = content.get(position);
 
         holder.title.setText(toDraw.getName());
         holder.description.setText("");
@@ -87,7 +87,7 @@ public class CharacterAdapter extends ArrayAdapter<Character> {
     // FIELD
     /* ============================================ */
 
-    private List<Character> content;
+    private List<Entity> content;
     private Context context;
 
     /* ============================================ */

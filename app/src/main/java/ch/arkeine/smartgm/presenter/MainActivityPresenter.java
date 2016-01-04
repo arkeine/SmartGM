@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.arkeine.smartgm.MainFilterManager;
-import ch.arkeine.smartgm.model.dao.CharacterDAOInterface;
-import ch.arkeine.smartgm.model.dao.DiceDAOInterface;
-import ch.arkeine.smartgm.model.dao.GameDAOInterface;
-import ch.arkeine.smartgm.model.dao.StatisticDAOInterface;
-import ch.arkeine.smartgm.model.dao.TableDAOInterface;
-import ch.arkeine.smartgm.model.database.daoimplementation.CharacterDAO;
-import ch.arkeine.smartgm.model.object.*;
+import ch.arkeine.smartgm.model.dao.object.Dice;
+import ch.arkeine.smartgm.model.dao.object.Entity;
+import ch.arkeine.smartgm.model.dao.object.Game;
+import ch.arkeine.smartgm.model.dao.object.Table;
+import ch.arkeine.smartgm.model.dao.object.TimeLine;
+import ch.arkeine.smartgm.model.dao.object.Universe;
+import ch.arkeine.smartgm.model.dao.object.WikiPage;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.DicePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.EntityPersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.EntityValuePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.GamePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.TablePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.TimeLinePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.UniversePersistenceInterface;
+import ch.arkeine.smartgm.model.dao.persistenceinterface.WikiPagePersistenceInterface;
 import ch.arkeine.smartgm.view.MainActivity;
-import ch.arkeine.smartgm.model.object.Character;
 
 /**
- * Created by Arkeine on 06.11.2015.
+ * Presenter for the main activity which list multi-content
  */
 public class MainActivityPresenter {
 
@@ -26,19 +33,23 @@ public class MainActivityPresenter {
     /**
      * Create a new MainActivityPresenter with all the DAO objects needed
      */
-    public MainActivityPresenter(
-            GameDAOInterface gameDAO,
-            DiceDAOInterface diceDAO,
-            TableDAOInterface tableDAO,
-            CharacterDAOInterface characterDAO,
-            StatisticDAOInterface statisticDAO,
-            MainFilterManager selectorManager) {
+    public MainActivityPresenter(MainFilterManager selectorManager,
+                                 UniversePersistenceInterface universeDAO,
+                                 GamePersistenceInterface gameDAO,
+                                 DicePersistenceInterface diceDAO,
+                                 WikiPagePersistenceInterface wikiDAO,
+                                 TablePersistenceInterface tableDAO,
+                                 TimeLinePersistenceInterface timeLineDAO,
+                                 EntityPersistenceInterface entityDAO) {
+        this.universeDAO = universeDAO;
         this.gameDAO = gameDAO;
         this.diceDAO = diceDAO;
+        this.wikiDAO = wikiDAO;
         this.tableDAO = tableDAO;
-        this.characterDAO = characterDAO;
-        this.statisticDAO = statisticDAO;
-        this.type = DATA_TYPE.GAME;
+        this.timeLineDAO = timeLineDAO;
+        this.entityDAO = entityDAO;
+
+        this.type = DATA_TYPE.UNIVERSE;
         this.filter = selectorManager;
     }
 
@@ -78,6 +89,13 @@ public class MainActivityPresenter {
         //Select the type of data
         switch (type) {
 
+            case UNIVERSE:
+                Universe u = (Universe) itemAtPosition;
+
+                if (u.getId() == filter.getUniverseId()) {
+                    filter.setUniverseId(null);
+                }
+                universeDAO.delete(u);
             case GAME:
                 Game g = (Game) itemAtPosition;
 
@@ -89,20 +107,17 @@ public class MainActivityPresenter {
             case DICE:
                 diceDAO.delete((Dice) itemAtPosition);
                 break;
+            case WIKI:
+                wikiDAO.delete((WikiPage) itemAtPosition);
+                break;
             case TABLE:
                 tableDAO.delete((Table) itemAtPosition);
                 break;
-            case CHARACTER:
-
-                Character c = (Character) itemAtPosition;
-
-                if (c.getId() == filter.getCharacterId()) {
-                    filter.setCharacterId(null);
-                }
-                characterDAO.delete(c);
+            case TIME_LINE:
+                timeLineDAO.delete((TimeLine) itemAtPosition);
                 break;
-            case STATISTIC:
-                statisticDAO.delete((Statistic) itemAtPosition);
+            case ENTITY_MODEL:
+                entityDAO.delete((Entity) itemAtPosition);
                 break;
         }
         publish();
@@ -110,13 +125,18 @@ public class MainActivityPresenter {
 
     public String getGameName(long gameId)
     {
-        return gameDAO.find(gameId).getTitle();
+        return gameDAO.find(gameId).getName();
     }
 
     public String getCharacterName(long gameId)
     {
-        return characterDAO.find(gameId).getName();
+        return "";//characterDAO.find(gameId).getName();
     }
+
+    public String getUniverseName(long universeId) {
+        return universeDAO.find(universeId).getName();
+    }
+
 
     /* ============================================ */
     // PRIVATE
@@ -131,24 +151,33 @@ public class MainActivityPresenter {
             List l = null;
             switch (type) {
 
+                case UNIVERSE:
+                    l = universeDAO.listAll();
+                    break;
+
                 case GAME:
-                    l = gameDAO.listAll();
+                    l = filter.isUniverseSelected() ?
+                            gameDAO.listGame(filter.getUniverseId()) : new ArrayList<>(0);
                     break;
                 case DICE:
-                    l = filter.isGameSelected() ?
-                            diceDAO.listDice(filter.getGameId()) : new ArrayList<>(0);
+                    l = filter.isUniverseSelected() ?
+                            diceDAO.listDice(filter.getUniverseId()) : new ArrayList<>(0);
+                    break;
+                case WIKI:
+                    l = filter.isUniverseSelected() ?
+                            wikiDAO.listWikiPage(filter.getUniverseId()) : new ArrayList<>(0);
                     break;
                 case TABLE:
-                    l = filter.isGameSelected() ?
-                            tableDAO.listTable(filter.getGameId()) : new ArrayList<>(0);
+                    l = filter.isUniverseSelected() ?
+                            tableDAO.listTable(filter.getUniverseId()) : new ArrayList<>(0);
                     break;
-                case CHARACTER:
+                case TIME_LINE:
                     l = filter.isGameSelected() ?
-                            characterDAO.listCharacter(filter.getGameId()) : new ArrayList<>(0);
+                            timeLineDAO.listTimeLine(filter.getGameId()) : new ArrayList<>(0);
                     break;
-                case STATISTIC:
-                    l = filter.isGameSelected() ?
-                            statisticDAO.listStatistic(filter.getCharacterId()) : new ArrayList<>(0);
+                case ENTITY_MODEL:
+                    l = filter.isUniverseSelected() ?
+                            entityDAO.listItemByType(filter.getUniverseId(), Entity.Type.MODEL) : new ArrayList<>(0);
                     break;
             }
             view.setListContent(type, l);
@@ -163,11 +192,13 @@ public class MainActivityPresenter {
     private MainActivity view;
     private final MainFilterManager filter;
 
-    private final GameDAOInterface gameDAO;
-    private final DiceDAOInterface diceDAO;
-    private final TableDAOInterface tableDAO;
-    private final CharacterDAOInterface characterDAO;
-    private final StatisticDAOInterface statisticDAO;
+    private final UniversePersistenceInterface universeDAO;
+    private final GamePersistenceInterface gameDAO;
+    private final DicePersistenceInterface diceDAO;
+    private final WikiPagePersistenceInterface wikiDAO;
+    private final TablePersistenceInterface tableDAO;
+    private final TimeLinePersistenceInterface timeLineDAO;
+    private final EntityPersistenceInterface entityDAO;
 
-    public enum DATA_TYPE {GAME, DICE, TABLE, CHARACTER, STATISTIC}
+    public enum DATA_TYPE {UNIVERSE, GAME, DICE, TABLE, WIKI, TIME_LINE, ENTITY_MODEL}
 }

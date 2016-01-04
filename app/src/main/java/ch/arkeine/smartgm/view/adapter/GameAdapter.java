@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.object.Game;
+import ch.arkeine.smartgm.model.dao.object.Game;
 
 /**
  * Created by arkeine on 11/9/15.
@@ -40,11 +40,11 @@ public class GameAdapter extends ArrayAdapter<Game> {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(resource, parent, false);
 
-            TextView title = (TextView) view.findViewById(R.id.title);
-            TextView description = (TextView) view.findViewById(R.id.subtitle);
+            TextView name = (TextView) view.findViewById(R.id.title);
+            TextView note = (TextView) view.findViewById(R.id.subtitle);
 
-            holder.title = title;
-            holder.description = description;
+            holder.name = name;
+            holder.note = note;
 
             view.setTag(holder);
         } else {
@@ -54,33 +54,10 @@ public class GameAdapter extends ArrayAdapter<Game> {
         // Item to draw
         Game toDraw = content.get(position);
 
-        holder.title.setText(toDraw.getTitle());
-        holder.description.setText(toDraw.getDescription());
+        holder.name.setText(toDraw.getName());
+        holder.note.setText(toDraw.getNote());
 
         return view;
-    }
-
-
-    /* ============================================ */
-    // PRIVATE
-    /* ============================================ */
-
-    private View.OnClickListener getSimleClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
-    }
-
-    private View.OnLongClickListener getLongClickListener() {
-        return new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        };
     }
 
     /* ============================================ */
@@ -100,7 +77,7 @@ public class GameAdapter extends ArrayAdapter<Game> {
      * View Holder pattern
      */
     private static class Holder {
-        public TextView title;
-        public TextView description;
+        public TextView name;
+        public TextView note;
     }
 }

@@ -9,4 +9,9 @@
         <item>Edit weight</item>
         <item>Delete</item>
     </array>
+    <array name="action_list_edition_setting_activity">
+        <item>Edit name</item>
+        <item>Edit value</item>
+        <item>Delete</item>
+    </array>
 </resources>

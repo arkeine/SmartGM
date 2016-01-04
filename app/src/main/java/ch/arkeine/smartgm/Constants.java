@@ -1,7 +1,7 @@
 package ch.arkeine.smartgm;
 
 /**
- * Created by Arkeine on 12.11.2015.
+ * This class hold constants which are shared by many classes
  */
 public final class Constants {
 
@@ -10,16 +10,22 @@ public final class Constants {
     // CONSTANTS
     /* ============================================ */
 
-    // Intents (communication between activity)
-    public static final String MODE_TITLE = "MODE";
+    // Keyword for communicate the content in intent
+    public static final String KEY_MODE_CONTENT = "MODE";
+    public static final String KEY_ID_CONTENT = "ID";
+    public static final String KEY_ENTITY_TYPE_CONTENT = "ENTITY_TYPE";
+    public static final String KEY_DESCRIPTION_CONTENT = "DESCRIPTION";
+
+    // Mode type of an edition activity
     public static final String MODE_CREATE = "CREATE";
     public static final String MODE_MODIFY = "MODIFY";
     public static final String MODE_USE = "USE";
-    public static final String ID_TITLE = "ID";
 
     // Invalid ID for SQLite databases
+    public static final long INVALID_ID = -1;
 
-    public static final long invalidId = -1;
+    // Format pattern for the date
+    public static final String DATE_PATTERN = "dd.MM.yyyy";
 
     /* ============================================ */
     // TOOLS
@@ -27,15 +33,5 @@ public final class Constants {
 
     public static String getOrDefault(String value, String defaultValue) {
         return value == null ? defaultValue : value;
-    }
-
-    /* ============================================ */
-    // CONSTRUCTOR
-    /* ============================================ */
-
-    /**
-     * Only static class, can't be instantiate
-     */
-    private Constants() {
     }
 }

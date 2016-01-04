@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TableSettingActivity">
+
+    <item
+        android:id="@+id/action_describe"
+        android:title="@string/activity_main_action_describe"
+        android:icon="@drawable/sheet"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+</menu>

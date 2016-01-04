@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.object.Dice;
+import ch.arkeine.smartgm.model.dao.object.Dice;
 
 /**
  * Created by arkeine on 11/9/15.

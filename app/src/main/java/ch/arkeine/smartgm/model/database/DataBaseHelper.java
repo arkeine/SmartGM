@@ -4,12 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseCharacterTable;
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseDiceTable;
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseGameTable;
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseStatisticTable;
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseTableItemTable;
-import ch.arkeine.smartgm.model.database.tablecontract.DataBaseTableTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateDiceTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateGameTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateTableItemTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateTableTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateUniverseTable;
+import ch.arkeine.smartgm.model.database.migrations.m1.CreateWikiTable;
+import ch.arkeine.smartgm.model.database.migrations.m2.CreateEntityTable;
+import ch.arkeine.smartgm.model.database.migrations.m2.CreateEntityValueTable;
+import ch.arkeine.smartgm.model.database.migrations.m2.CreateTimeLineTable;
 
 /**
  * Created by Arkeine on 08.11.2015.
@@ -38,23 +41,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DataBaseGameTable.SQL_CREATE_ENTRIES);
-        db.execSQL(DataBaseDiceTable.SQL_CREATE_ENTRIES);
-        db.execSQL(DataBaseTableTable.SQL_CREATE_ENTRIES);
-        db.execSQL(DataBaseTableItemTable.SQL_CREATE_ENTRIES);
-        db.execSQL(DataBaseCharacterTable.SQL_CREATE_ENTRIES);
-        db.execSQL(DataBaseStatisticTable.SQL_CREATE_ENTRIES);
+        onUpgrade(db, 0, DATABASE_VERSION);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DataBaseGameTable.SQL_DELETE_ENTRIES);
-        db.execSQL(DataBaseDiceTable.SQL_DELETE_ENTRIES);
-        db.execSQL(DataBaseTableTable.SQL_DELETE_ENTRIES);
-        db.execSQL(DataBaseTableItemTable.SQL_DELETE_ENTRIES);
-        db.execSQL(DataBaseCharacterTable.SQL_DELETE_ENTRIES);
-        db.execSQL(DataBaseStatisticTable.SQL_DELETE_ENTRIES);
-        onCreate(db);
+        while(oldVersion < newVersion)
+        {
+            doMigrationNumber(oldVersion, db);
+            ++oldVersion;
+        }
     }
 
     @Override
@@ -68,10 +64,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /* ============================================ */
+    // PRIVATE
+    /* ============================================ */
+
+    private void doMigrationNumber(int version, SQLiteDatabase db)
+    {
+        switch (version)
+        {
+            case 0:
+                new CreateUniverseTable().migrate(db);
+                new CreateDiceTable().migrate(db);
+                new CreateGameTable().migrate(db);
+                new CreateTableTable().migrate(db);
+                new CreateTableItemTable().migrate(db);
+                new CreateWikiTable().migrate(db);
+                break;
+            case 1:
+                new CreateEntityTable().migrate(db);
+                new CreateEntityValueTable().migrate(db);
+                new CreateTimeLineTable().migrate(db);
+                break;
+        }
+    }
+
+    /* ============================================ */
     // CONSTANTS
     /* ============================================ */
 
-    public static final int DATABASE_VERSION = 27;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "smartgm.db";
 
     private static final String ENABLE_FK = "PRAGMA foreign_keys=ON;";

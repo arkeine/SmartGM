@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.object.TableItem;
+import ch.arkeine.smartgm.model.dao.object.TableItem;
 
 /**
  * Created by arkeine on 11/9/15.
@@ -43,7 +43,7 @@ public class TableItemAdapter extends ArrayAdapter<TableItem> {
             TextView title = (TextView) view.findViewById(R.id.left);
             TextView weight = (TextView) view.findViewById(R.id.right);
 
-            holder.title = title;
+            holder.name = title;
             holder.weight = weight;
 
             view.setTag(holder);
@@ -52,7 +52,7 @@ public class TableItemAdapter extends ArrayAdapter<TableItem> {
         }
 
         TableItem toDraw = content.get(position);
-        holder.title.setText(toDraw.getTitle());
+        holder.name.setText(toDraw.getName());
         holder.weight.setText(String.valueOf(toDraw.getWeight()));
 
         return view;
@@ -75,7 +75,7 @@ public class TableItemAdapter extends ArrayAdapter<TableItem> {
      * View Holder pattern
      */
     private static class Holder {
-        public TextView title;
+        public TextView name;
         public TextView weight;
     }
 

@@ -24,24 +24,27 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.MainFilterManager;
 import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.SmartGmApplication;
-import ch.arkeine.smartgm.model.database.daoimplementation.CharacterDAO;
-import ch.arkeine.smartgm.model.database.daoimplementation.DiceDAO;
-import ch.arkeine.smartgm.model.database.daoimplementation.GameDAO;
-import ch.arkeine.smartgm.model.database.daoimplementation.StatisticDAO;
-import ch.arkeine.smartgm.model.database.daoimplementation.TableDAO;
-import ch.arkeine.smartgm.model.object.ObjectWithIdentifier;
+import ch.arkeine.smartgm.model.dao.object.Entity;
+import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
+import ch.arkeine.smartgm.model.database.dal.DicePersistence;
+import ch.arkeine.smartgm.model.database.dal.EntityPersistence;
+import ch.arkeine.smartgm.model.database.dal.GamePersistence;
+import ch.arkeine.smartgm.model.database.dal.TablePersistence;
+import ch.arkeine.smartgm.model.database.dal.TimeLinePersistence;
+import ch.arkeine.smartgm.model.database.dal.UniversePersistence;
+import ch.arkeine.smartgm.model.database.dal.WikiPagePersistence;
 import ch.arkeine.smartgm.presenter.MainActivityPresenter;
-import ch.arkeine.smartgm.presenter.StatisticSettingActivityPresenter;
-import ch.arkeine.smartgm.view.adapter.CharacterAdapter;
 import ch.arkeine.smartgm.view.adapter.DiceAdapter;
 import ch.arkeine.smartgm.view.adapter.GameAdapter;
-import ch.arkeine.smartgm.view.adapter.StatisticAdapter;
+import ch.arkeine.smartgm.view.adapter.SimpleToStringAdapter;
 import ch.arkeine.smartgm.view.adapter.TableAdapter;
+import ch.arkeine.smartgm.view.adapter.TimeLineAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFilterManager.GameFilterChangeListener,
-        MainFilterManager.CharacterFilterChangeListener {
+        MainFilterManager.CharacterFilterChangeListener,
+        MainFilterManager.UniverseFilterChangeListener {
 
     /* ============================================ */
     // OVERRRIDE
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 displayItemOption(position);
-                return false;
+                return true;
             }
         });
         listMultiContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,13 +86,23 @@ public class MainActivity extends AppCompatActivity
         filter = app.getFilterManager();
         filter.setOnCharacterFilterChangeListener(this);
         filter.setOnGameFilterChangeListener(this);
+        filter.setOnUniverseFilterChangeListener(this);
 
         if (presenter == null) {
-            presenter = new MainActivityPresenter(new GameDAO(this), new DiceDAO(this),
-                    new TableDAO(this), new CharacterDAO(this), new StatisticDAO(this), filter);
+            presenter = new MainActivityPresenter(filter,
+                    new UniversePersistence(this),
+                    new GamePersistence(this),
+                    new DicePersistence(this),
+                    new WikiPagePersistence(this),
+                    new TablePersistence(this),
+                    new TimeLinePersistence(this),
+                    new EntityPersistence(this));
+
+            filter.setCharacterId(null);
+            filter.setGameId(null);
+            filter.setUniverseId(null);
         }
-        filter.setCharacterId(null);
-        filter.setGameId(null);
+        filter.refrechListeners();
     }
 
     @Override
@@ -142,20 +155,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_game) {
+        if (id == R.id.nav_universe) {
+            presenter.setType(MainActivityPresenter.DATA_TYPE.UNIVERSE);
+        } else if (id == R.id.nav_game) {
             presenter.setType(MainActivityPresenter.DATA_TYPE.GAME);
         } else if (id == R.id.nav_dice) {
             presenter.setType(MainActivityPresenter.DATA_TYPE.DICE);
+        } else if (id == R.id.nav_wiki) {
+            presenter.setType(MainActivityPresenter.DATA_TYPE.WIKI);
         } else if (id == R.id.nav_table) {
             presenter.setType(MainActivityPresenter.DATA_TYPE.TABLE);
-        } else if (id == R.id.nav_wiki) {
-            displaySoon();
-        } else if (id == R.id.nav_inventory) {
-            displaySoon();
-        } else if (id == R.id.nav_statistic) {
-            presenter.setType(MainActivityPresenter.DATA_TYPE.STATISTIC);
-        } else if (id == R.id.nav_character) {
-            presenter.setType(MainActivityPresenter.DATA_TYPE.CHARACTER);
+        } else if (id == R.id.nav_timeline) {
+            presenter.setType(MainActivityPresenter.DATA_TYPE.TIME_LINE);
+        } else if (id == R.id.nav_model) {
+            presenter.setType(MainActivityPresenter.DATA_TYPE.ENTITY_MODEL);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -169,11 +182,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
         menu.setGroupVisible(R.id.sub_options_character, filter.isCharacterSelected());
-        if(filter.isCharacterSelected())
-        {
+
+        if (filter.isCharacterSelected()) {
             String title = getResources().getString(R.string.drawer_character_separator) +
-                    " : " +presenter.getCharacterName(characterId);
-            MenuItem item = menu.getItem(2);
+                    " : " + presenter.getCharacterName(filter.getCharacterId());
+            MenuItem item = menu.getItem(3);
             item.setTitle(title);
         }
     }
@@ -184,10 +197,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
         menu.setGroupVisible(R.id.sub_options_game, filter.isGameSelected());
-        if(filter.isGameSelected())
-        {
-            String title = getResources().getString(R.string.drawer_world_separator) +
-                    " : " +presenter.getGameName(gameId);
+
+        if (filter.isGameSelected()) {
+            String title = getResources().getString(R.string.drawer_game_separator) +
+                    " : " + presenter.getGameName(filter.getGameId());
+            MenuItem item = menu.getItem(2);
+            item.setTitle(title);
+        }
+    }
+
+    @Override
+    public void onUniverseSelectionChanged(Long universeId) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        menu.setGroupVisible(R.id.sub_options_universe, filter.isUniverseSelected());
+
+        if (filter.isUniverseSelected()) {
+            String title = getResources().getString(R.string.drawer_universe_separator) +
+                    " : " + presenter.getUniverseName(filter.getUniverseId());
             MenuItem item = menu.getItem(1);
             item.setTitle(title);
         }
@@ -207,6 +234,10 @@ public class MainActivity extends AppCompatActivity
         //Set the adapter relative to the type of item
         ArrayAdapter adapter = null;
         switch (type) {
+            case UNIVERSE:
+                adapter = new SimpleToStringAdapter(this, list);
+                setTitle(R.string.func_universe_title);
+                break;
             case GAME:
                 adapter = new GameAdapter(this, list);
                 setTitle(R.string.func_game_title);
@@ -215,17 +246,21 @@ public class MainActivity extends AppCompatActivity
                 adapter = new DiceAdapter(this, list);
                 setTitle(R.string.func_dice_title);
                 break;
+            case WIKI:
+                adapter = new SimpleToStringAdapter(this, list);
+                setTitle(R.string.func_wiki_title);
+                break;
             case TABLE:
                 adapter = new TableAdapter(this, list);
                 setTitle(R.string.func_table_title);
                 break;
-            case CHARACTER:
-                adapter = new CharacterAdapter(this, list);
-                setTitle(R.string.func_character_title);
+            case TIME_LINE:
+                adapter = new TimeLineAdapter(this, list);
+                setTitle(R.string.func_timeline_title);
                 break;
-            case STATISTIC:
-                adapter = new StatisticAdapter(this, list);
-                setTitle(R.string.func_statistic_title);
+            case ENTITY_MODEL:
+                adapter = new SimpleToStringAdapter(this, list);
+                setTitle(R.string.func_model_title);
                 break;
         }
 
@@ -236,33 +271,13 @@ public class MainActivity extends AppCompatActivity
      * Add a new tuple to the data
      */
     private void addNewContent() {
-        Intent intent = null;
+        Intent intent = createIntent();
 
-        // Select the activity for the data
-        switch (presenter.getType()) {
-            case GAME:
-                intent = new Intent(MainActivity.this, GameSettingActivity.class);
-                break;
-            case DICE:
-                intent = new Intent(MainActivity.this, DiceSettingActivity.class);
-                break;
-            case TABLE:
-                intent = new Intent(MainActivity.this, TableSettingActivity.class);
-                break;
-            case CHARACTER:
-                intent = new Intent(MainActivity.this, CharacterSettingActivity.class);
-                break;
-            case STATISTIC:
-                intent = new Intent(MainActivity.this, StatisticSettingActivity.class);
-                break;
-
-            default:
-                return;
+        if (intent != null) {
+            // Start activity
+            intent.putExtra(Constants.KEY_MODE_CONTENT, Constants.MODE_CREATE);
+            startActivity(intent);
         }
-
-        // Start activity
-        intent.putExtra(Constants.MODE_TITLE, Constants.MODE_CREATE);
-        startActivity(intent);
     }
 
     /**
@@ -276,34 +291,14 @@ public class MainActivity extends AppCompatActivity
      * Edit a tuple from the data
      */
     private void editContent(ObjectWithIdentifier itemAtPosition) {
-        Intent intent = null;
+        Intent intent = createIntent();
 
-        // Select the activity for the data
-        switch (presenter.getType()) {
-            case GAME:
-                intent = new Intent(MainActivity.this, GameSettingActivity.class);
-                break;
-            case DICE:
-                intent = new Intent(MainActivity.this, DiceSettingActivity.class);
-                break;
-            case TABLE:
-                intent = new Intent(MainActivity.this, TableSettingActivity.class);
-                break;
-            case CHARACTER:
-                intent = new Intent(MainActivity.this, CharacterSettingActivity.class);
-                break;
-            case STATISTIC:
-                intent = new Intent(MainActivity.this, StatisticSettingActivity.class);
-                break;
-
-            default:
-                return;
+        if (intent != null) {
+            // Start activity
+            intent.putExtra(Constants.KEY_MODE_CONTENT, Constants.MODE_MODIFY);
+            intent.putExtra(Constants.KEY_ID_CONTENT, itemAtPosition.getId());
+            startActivity(intent);
         }
-
-        // Start activity
-        intent.putExtra(Constants.MODE_TITLE, Constants.MODE_MODIFY);
-        intent.putExtra(Constants.ID_TITLE, itemAtPosition.getId());
-        startActivity(intent);
     }
 
     /**
@@ -315,23 +310,30 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Select the activity for the data
         switch (presenter.getType()) {
+            case UNIVERSE:
+                filter.setUniverseId(itemAtPosition.getId());
+
+                drawer.openDrawer(GravityCompat.START);
+                break;
             case GAME:
                 filter.setGameId(itemAtPosition.getId());
 
                 drawer.openDrawer(GravityCompat.START);
                 break;
-            case CHARACTER:
-                filter.setCharacterId(itemAtPosition.getId());
-
-                drawer.openDrawer(GravityCompat.START);
+            case WIKI:
+                editContent(itemAtPosition);
+                break;
+            case TIME_LINE:
+                editContent(itemAtPosition);
                 break;
         }
-        if (intent == null) return;
 
-        // Start activity
-        intent.putExtra(Constants.MODE_TITLE, Constants.MODE_USE);
-        intent.putExtra(Constants.ID_TITLE, itemAtPosition.getId());
-        startActivity(intent);
+        if (intent != null) {
+            // Start activity
+            intent.putExtra(Constants.KEY_MODE_CONTENT, Constants.MODE_USE);
+            intent.putExtra(Constants.KEY_ID_CONTENT, itemAtPosition.getId());
+            startActivity(intent);
+        }
     }
 
     /* ============================================ */
@@ -372,6 +374,36 @@ public class MainActivity extends AppCompatActivity
         toast.show();
     }
 
+    private Intent createIntent() {
+        Intent intent = null;
+
+        // Select the activity for the data
+        switch (presenter.getType()) {
+            case UNIVERSE:
+                intent = new Intent(MainActivity.this, UniverseEditionActivity.class);
+                break;
+            case GAME:
+                intent = new Intent(MainActivity.this, GameEditionActivity.class);
+                break;
+            case DICE:
+                intent = new Intent(MainActivity.this, DiceEditionActivity.class);
+                break;
+            case TABLE:
+                intent = new Intent(MainActivity.this, TableEditionActivity.class);
+                break;
+            case WIKI:
+                intent = new Intent(MainActivity.this, WikiEditionActivity.class);
+                break;
+            case TIME_LINE:
+                intent = new Intent(MainActivity.this, TimeLineEditionActivity.class);
+                break;
+            case ENTITY_MODEL:
+                intent = new Intent(MainActivity.this, EntityEditionActivity.class);
+                intent.putExtra(Constants.KEY_ENTITY_TYPE_CONTENT, Entity.Type.MODEL.ordinal());
+                break;
+        }
+        return intent;
+    }
     /* ============================================ */
     // FIELD
     /* ============================================ */
@@ -379,4 +411,5 @@ public class MainActivity extends AppCompatActivity
     private static MainActivityPresenter presenter;
     private MainFilterManager filter;
     private ListView listMultiContent;
+
 }

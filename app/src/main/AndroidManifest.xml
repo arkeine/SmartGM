@@ -20,23 +20,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.GameSettingActivity"
+            android:name=".view.UniverseEditionActivity"
+            android:label="@string/activity_universe_setting_main_title" />
+        <activity
+            android:name=".view.GameEditionActivity"
             android:label="@string/activity_game_setting_main_title" />
         <activity
-            android:name=".view.DiceSettingActivity"
+            android:name=".view.DiceEditionActivity"
             android:label="@string/activity_dice_setting_main_title" />
         <activity
-            android:name=".view.TableSettingActivity"
+            android:name=".view.TableEditionActivity"
             android:label="@string/activity_table_setting_main_title" />
         <activity
             android:name=".view.WikiEditionActivity"
             android:label="@string/title_activity_wiki_edition" />
         <activity
-            android:name=".view.CharacterSettingActivity"
-            android:label="@string/activity_character_setting_main_title" />
-        <activity
-            android:name=".view.StatisticSettingActivity"
-            android:label="@string/activity_statistic_setting_main_title" />
+            android:name=".view.EntityEditionActivity"
+            android:label="@string/activity_entity_setting_main_title" />
+        <activity android:name=".view.DescriptionActivity" />
+        <activity android:name=".view.TimeLineEditionActivity" >
+        </activity>
     </application>
 
 </manifest>

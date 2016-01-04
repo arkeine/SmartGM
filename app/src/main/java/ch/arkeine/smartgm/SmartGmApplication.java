@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.ContentValues;
 
 /**
- * Created by Arkeine on 06.11.2015.
+ * Custom application class which hold some global object
  */
 public class SmartGmApplication extends Application {
 

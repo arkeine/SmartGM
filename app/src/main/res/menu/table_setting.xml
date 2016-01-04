@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/action_add"
-        android:title="@string/action_add"
+        android:title="@string/activity_main_action_add"
         android:icon="@drawable/pluswithe"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />

@@ -17,7 +17,9 @@ import android.widget.Toast;
 import ch.arkeine.smartgm.R;
 
 /**
- * TODO: document your custom view class.
+ * This is a number picker component for android api v10.
+ *
+ * The interface is created by code inside the geometry method. It's just an exercise in style.
  */
 public class NumberPickerView extends LinearLayout {
 
@@ -42,89 +44,6 @@ public class NumberPickerView extends LinearLayout {
         setCurrent(attrs.getAttributeIntValue(namespace, "currentValue", 0));
         setMax(attrs.getAttributeIntValue(namespace, "maximumValue", 0));
         setMin(attrs.getAttributeIntValue(namespace, "minimumValue", 0));
-    }
-
-    private void geometry(AttributeSet attrs, int defStyle) {
-        // Load attributes
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.NumberPickerView, defStyle, 0);
-
-        text = new EditText(getContext());
-        up = new ImageButton(getContext());
-        down = new ImageButton(getContext());
-
-        text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        up.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        down.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-        text.setText("0");
-        text.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        text.setPadding(20, 20, 20, 20);
-        text.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
-        up.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.circle_shape));
-        down.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.circle_shape));
-
-        int orientation = a.getInteger(R.styleable.NumberPickerView_orientation, 0);
-        setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-
-        if (orientation == 0) {
-            setOrientation(LinearLayout.HORIZONTAL);
-            addView(down);
-            addView(text);
-            addView(up);
-
-            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.rightwithe));
-            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.leftwithe));
-        } else {
-            setOrientation(LinearLayout.VERTICAL);
-            addView(up);
-            addView(text);
-            addView(down);
-
-            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.upwithe));
-            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.downwithe));
-        }
-
-        a.recycle();
-    }
-
-    private void control(AttributeSet attrs, int defStyle) {
-
-
-        up.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonUpClicked();
-            }
-        });
-        down.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonDownClicked();
-            }
-        });
-        text.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                        actionId == EditorInfo.IME_ACTION_DONE ||
-                        event.getAction() == KeyEvent.ACTION_DOWN &&
-                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    if (!event.isShiftPressed()) {
-                        // the user is done typing.
-                        textChange();
-                        return true; // consume.
-                    }
-                }
-                return false; // pass on to other listeners.
-            }
-        });
-        text.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                textChange();
-            }
-        });
     }
 
 	/* ============================================ */
@@ -197,6 +116,87 @@ public class NumberPickerView extends LinearLayout {
     // PRIVATE
     /* ============================================ */
 
+    private void geometry(AttributeSet attrs, int defStyle) {
+        // Load attributes
+        final TypedArray a = getContext().obtainStyledAttributes(
+                attrs, R.styleable.NumberPickerView, defStyle, 0);
+
+        text = new EditText(getContext());
+        up = new ImageButton(getContext());
+        down = new ImageButton(getContext());
+
+        text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        up.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        down.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+        text.setText("0");
+        text.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        text.setPadding(20, 20, 20, 20);
+        text.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        up.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.button_circle_shape));
+        down.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.button_circle_shape));
+
+        int orientation = a.getInteger(R.styleable.NumberPickerView_orientation, 0);
+        setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
+        if (orientation == 0) {
+            setOrientation(LinearLayout.HORIZONTAL);
+            addView(down);
+            addView(text);
+            addView(up);
+
+            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.rightwithe));
+            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.leftwithe));
+        } else {
+            setOrientation(LinearLayout.VERTICAL);
+            addView(up);
+            addView(text);
+            addView(down);
+
+            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.upwithe));
+            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.downwithe));
+        }
+
+        a.recycle();
+    }
+
+    private void control(AttributeSet attrs, int defStyle) {
+        up.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonUpClicked();
+            }
+        });
+        down.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDownClicked();
+            }
+        });
+        text.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (!event.isShiftPressed()) {
+                        // the user is done typing.
+                        textChange();
+                        return true; // consume.
+                    }
+                }
+                return false; // pass on to other listeners.
+            }
+        });
+        text.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                textChange();
+            }
+        });
+    }
+
     private void buttonUpClicked() {
         setCurrent(getCurrent() + 1);
     }
@@ -226,10 +226,12 @@ public class NumberPickerView extends LinearLayout {
     // FIELD
     /* ============================================ */
 
+    // interfaces
     private ImageButton up;
     private ImageButton down;
     private EditText text;
 
+    // data
     private Integer max;
     private Integer current = 0;
     private Integer min;

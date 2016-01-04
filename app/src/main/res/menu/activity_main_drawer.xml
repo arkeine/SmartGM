@@ -3,17 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_game"
+            android:id="@+id/nav_universe"
             android:icon="@drawable/planet"
-            android:title="@string/func_game_title" />
+            android:title="@string/func_universe_title" />
     </group>
 
     <group
         android:checkableBehavior="single"
-        android:id="@+id/sub_options_game">
-        <item android:title="@string/drawer_world_separator">
+        android:id="@+id/sub_options_universe">
+        <item android:title="@string/drawer_universe_separator">
             <menu>
                 <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_game"
+                        android:icon="@drawable/game"
+                        android:title="@string/func_game_title" />
                     <item
                         android:id="@+id/nav_dice"
                         android:icon="@drawable/dice"
@@ -27,12 +31,26 @@
                         android:icon="@drawable/sheet"
                         android:title="@string/func_wiki_title" />
                     <item
-                        android:id="@+id/nav_character"
-                        android:icon="@drawable/character"
-                        android:title="@string/func_character_title" />
+                        android:id="@+id/nav_model"
+                        android:icon="@drawable/sheet"
+                        android:title="@string/func_model_title" />
                 </group>
             </menu>
         </item>
+        <group
+            android:checkableBehavior="single"
+            android:id="@+id/sub_options_game">
+            <item android:title="@string/drawer_game_separator">
+                <menu>
+                    <group android:checkableBehavior="single">
+                        <item
+                            android:id="@+id/nav_timeline"
+                            android:icon="@drawable/timeline"
+                            android:title="@string/func_timeline_title" />
+                    </group>
+                </menu>
+            </item>
+        </group>
         <group
             android:checkableBehavior="single"
             android:id="@+id/sub_options_character">
