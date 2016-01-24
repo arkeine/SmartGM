@@ -43,6 +43,9 @@
 
     <!--_____________________ ACTIVITY _____________________-->
 
+    <!-- WELCOME ACTIVITY -->
+    <string name="act_welcome_label">Touch the screen</string>
+
     <!-- MAIN ACTIVITY -->
     <string name="activity_main_dialog_edit_delete_title">Action on item</string>
     <!-- Title of the menu item -->

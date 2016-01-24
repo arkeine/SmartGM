@@ -10,6 +10,9 @@ public final class Constants {
     // CONSTANTS
     /* ============================================ */
 
+    //Default duration before switch automatically to the next view
+    public static final int WELCOME_DEFAULT_TIMEOUT = 500;
+
     // Keyword for communicate the content in intent
     public static final String KEY_MODE_CONTENT = "MODE";
     public static final String KEY_ID_CONTENT = "ID";
