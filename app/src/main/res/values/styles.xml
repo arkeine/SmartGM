@@ -37,4 +37,16 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <!--_____________________ TEXTS _____________________-->
+
+    <style name="inconspicuous_button">
+        <item name="android:textColor">@color/color_text_light</item>
+        <item name="android:background">@color/color_primary_light</item>
+    </style>
+
+    <style name="staring_button">
+        <item name="android:textColor">@color/color_text_light</item>
+        <item name="android:background">@color/color_accent</item>
+    </style>
+
 </resources>

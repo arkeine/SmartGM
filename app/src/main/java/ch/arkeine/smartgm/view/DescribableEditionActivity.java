@@ -1,20 +1,13 @@
 package ch.arkeine.smartgm.view;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewStub;
-import android.widget.Button;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
+import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 

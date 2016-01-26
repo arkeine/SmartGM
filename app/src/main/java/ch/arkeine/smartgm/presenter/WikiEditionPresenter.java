@@ -4,7 +4,7 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.object.WikiPage;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.WikiPagePersistenceInterface;
-import ch.arkeine.smartgm.view.DataEditionActivity;
+import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.WikiEditionActivity;
 
 /**

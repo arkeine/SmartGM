@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.view;
+package ch.arkeine.smartgm.view.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,30 +25,32 @@ public abstract class DataEditionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_edition);
 
-        if (layoutStub != 0) {
-            ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
-            stub.setLayoutResource(layoutStub);
-            View inflated = stub.inflate();
+        // Get components from view
+        Button buttonOk = (Button) findViewById(R.id.button_save);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onSave())
+                    finish();
+            }
+        });
 
-            // Get components from view
-            Button buttonOk = (Button) findViewById(R.id.button_save);
-            buttonOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onSave())
-                        finish();
-                }
-            });
+        Button buttonCancel = (Button) findViewById(R.id.button_cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCancel())
+                    finish();
+            }
+        });
 
-            Button buttonCancel = (Button) findViewById(R.id.button_cancel);
-            buttonCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onCancel())
-                        finish();
-                }
-            });
-        }
+        Button buttonReload = (Button) findViewById(R.id.button_reload);
+        buttonReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onReload();
+            }
+        });
     }
 
     /* ============================================ */
@@ -56,7 +58,12 @@ public abstract class DataEditionActivity extends AppCompatActivity {
     /* ============================================ */
 
     protected void setLayoutStub(@LayoutRes int layoutStub) {
-        this.layoutStub = layoutStub;
+
+        if (layoutStub != 0) {
+            ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
+            stub.setLayoutResource(layoutStub);
+            stub.inflate();
+        }
     }
 
     /* ============================================ */
@@ -68,6 +75,10 @@ public abstract class DataEditionActivity extends AppCompatActivity {
     }
 
     protected boolean onCancel() {
+        return true;
+    }
+
+    protected boolean onReload() {
         return true;
     }
 
@@ -93,5 +104,4 @@ public abstract class DataEditionActivity extends AppCompatActivity {
     // FIELD
     /* ============================================ */
 
-    private int layoutStub;
 }

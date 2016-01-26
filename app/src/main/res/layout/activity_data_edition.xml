@@ -27,21 +27,30 @@
         android:id="@+id/button_layout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="right">
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_save"
             android:id="@+id/button_save"
-            android:layout_gravity="bottom" />
+            style="@style/staring_button"
+            android:layout_margin="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_cancel"
             android:id="@+id/button_cancel"
-            android:layout_gravity="bottom" />
+            style="@style/inconspicuous_button"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_reload"
+            android:id="@+id/button_reload"
+            style="@style/inconspicuous_button"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 </RelativeLayout>

@@ -22,8 +22,8 @@ public class UniverseEditionActivity extends DescribableEditionActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setLayoutStub(R.layout.content_universe_edition);
         super.onCreate(savedInstanceState);
+        setLayoutStub(R.layout.content_universe_edition);
 
         // Get components from view
         editTextTitle = (EditText) findViewById(R.id.name);

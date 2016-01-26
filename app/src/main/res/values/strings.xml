@@ -25,6 +25,7 @@
     <string name="button_no">No</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_reload">Reload</string>
     <string name="button_close">Close</string>
     <string name="button_roll">Roll</string>
     <string name="button_up">+</string>
@@ -132,6 +133,9 @@
     <string name="activity_data_edition_dialog_save_message">Required fields are empty:
         Data would not be saved.
         </string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
