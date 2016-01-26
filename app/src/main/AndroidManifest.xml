@@ -35,7 +35,7 @@
         <activity android:name=".view.DescriptionActivity" />
         <activity android:name=".view.TimeLineEditionActivity" >
         </activity>
-        <activity android:name=".view.WelcomeActivity" >
+        <activity android:name=".view.activity.WelcomeActivity" >
             <intent-filter>
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
                 <action android:name="android.intent.action.MAIN" />

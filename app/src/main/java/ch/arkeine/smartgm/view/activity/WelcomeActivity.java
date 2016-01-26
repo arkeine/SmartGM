@@ -1,10 +1,9 @@
-package ch.arkeine.smartgm.view;
+package ch.arkeine.smartgm.view.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +18,7 @@ import java.util.TimerTask;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
+import ch.arkeine.smartgm.view.MainActivity;
 
 /**
  * This class is just a fun welcome screen
