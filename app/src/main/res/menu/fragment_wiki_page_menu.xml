@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_edit_wiki_page"
+        android:title="@string/menu_frag_wiki_page_edit"
+        android:icon="@drawable/sheet"
+        android:orderInCategory="50"
+        app:showAsAction="ifRoom" />
+</menu>

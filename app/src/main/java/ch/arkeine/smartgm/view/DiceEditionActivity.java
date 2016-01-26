@@ -85,10 +85,9 @@ public class DiceEditionActivity extends DataEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         presenter.setNbFace(seekbarNbFace.getProgress() + Dice.MINIMAL_FACE_NUMBER);
         presenter.saveObjectDAO();
-        return true;
     }
 
     /* ============================================ */

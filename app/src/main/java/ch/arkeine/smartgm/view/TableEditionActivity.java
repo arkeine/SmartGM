@@ -88,18 +88,16 @@ public class TableEditionActivity extends DescribableEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         String title = textName.getText().toString();
 
         if (title.isEmpty()) {
-            confirmeQuitNoSave();
-            return false;
+            //TODO
         }
         else
         {
             presenter.setName(title);
             presenter.saveObjectDAO();
-            return true;
         }
     }
 

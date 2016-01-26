@@ -48,18 +48,16 @@ public class DescriptionActivity extends DataEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra(Constants.KEY_DESCRIPTION_CONTENT, edit.getText().toString());
         setResult(Activity.RESULT_OK, returnIntent);
-        return true;
     }
 
     @Override
-    protected boolean onCancel() {
+    protected void onCancel() {
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);
-        return true;
     }
 
     private void mode(boolean edition)

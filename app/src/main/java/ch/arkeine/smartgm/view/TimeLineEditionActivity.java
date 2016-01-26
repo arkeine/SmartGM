@@ -82,18 +82,16 @@ public class TimeLineEditionActivity extends DescribableEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         String title = editTextName.getText().toString();
 
         if (title.isEmpty()) {
-            confirmeQuitNoSave();
-            return false;
+            //TODO
         }
         else
         {
             presenter.setName(editTextName.getText().toString());
             presenter.saveObjectDAO();
-            return true;
         }
     }
 

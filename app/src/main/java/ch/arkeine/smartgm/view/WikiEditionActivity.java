@@ -61,19 +61,17 @@ public class WikiEditionActivity extends DataEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         String title = editName.getText().toString();
 
         if (title.isEmpty()) {
-            confirmeQuitNoSave();
-            return false;
+            //TODO
         }
         else
         {
             presenter.setName(editName.getText().toString());
             presenter.setDescription(editDescription.getText().toString());
             presenter.saveObjectDAO();
-            return true;
         }
     }
 

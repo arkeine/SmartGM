@@ -1,5 +1,6 @@
 package ch.arkeine.smartgm.view.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -30,8 +31,7 @@ public abstract class DataEditionActivity extends AppCompatActivity {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onSave())
-                    finish();
+                onSave();
             }
         });
 
@@ -39,8 +39,7 @@ public abstract class DataEditionActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onCancel())
-                    finish();
+                onCancel();
             }
         });
 
@@ -70,38 +69,9 @@ public abstract class DataEditionActivity extends AppCompatActivity {
     // SHOULD OVERRIDE
     /* ============================================ */
 
-    protected boolean onSave() {
-        return true;
-    }
+    protected void onSave() {}
 
-    protected boolean onCancel() {
-        return true;
-    }
+    protected void onCancel() {}
 
-    protected boolean onReload() {
-        return true;
-    }
-
-    public void confirmeQuitNoSave()
-    {
-        // Create a dialog with the item the option list (delete and edit)
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.activity_data_edition_dialog_save_title)
-                .setMessage(R.string.activity_data_edition_dialog_save_message);
-
-        builder.setNegativeButton(R.string.button_close_anyway, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                DataEditionActivity.this.finish();
-            }
-        });
-        builder.setPositiveButton(R.string.button_cancel, null);
-
-        builder.show();
-    }
-
-    /* ============================================ */
-    // FIELD
-    /* ============================================ */
-
+    protected void onReload() {}
 }

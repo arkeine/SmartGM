@@ -44,18 +44,16 @@ public class UniverseEditionActivity extends DescribableEditionActivity {
     }
 
     @Override
-    protected boolean onSave() {
+    protected void onSave() {
         String title = editTextTitle.getText().toString();
 
         if (title.isEmpty()) {
-            confirmeQuitNoSave();
-            return false;
+            //TODO
         }
         else
         {
             presenter.setName(editTextTitle.getText().toString());
             presenter.saveObjectDAO();
-            return true;
         }
     }
 

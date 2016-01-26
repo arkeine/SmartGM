@@ -32,6 +32,11 @@
     <string name="button_down">-</string>
     <string name="button_close_anyway">Close anyway</string>
 
+    <!--_____________________ MENU _____________________-->
+
+    <!-- menu fragment wiki page -->
+    <string name="menu_frag_wiki_page_edit">Toggle edition</string>
+
 
     <!--_____________________ ADAPTER _____________________-->
 
@@ -42,14 +47,32 @@
     <string name="adapter_table_error_title">No item</string>
     <string name="adapter_table_error_content">Table is empty !</string>
 
+    <!--_____________________ FRAGMENT _____________________-->
+
+    <!-- WIKI FRAGMENT -->
+    <string name="frag_wiki_page_label_name">Name</string>
+
     <!--_____________________ ACTIVITY _____________________-->
 
     <!-- WELCOME ACTIVITY -->
     <string name="act_welcome_label">Touch the screen</string>
 
+    <!-- DATA EDITION ACTIVITY -->
+    <string name="act_data_edition_field_missing_title">Can not save</string>
+    <string name="act_data_edition_field_missing_message">Required fields are empty:
+        Data would not be saved.
+        </string>
+    <string name="act_data_edition_confirm_quit_title">Confirmation</string>
+    <string name="act_data_edition_confirm_quit_message">Modifications will be lost</string>
+
+
     <!-- UNIVERSE SELECTION ACTIVITY -->
     <string name="act_select_universe_title">Select Universe</string>
     <string name="act_select_universe_wellcome">Welcom aboard traveler !\n\nPlease select a universe where deploy your imagination...</string>
+
+
+
+
 
     <!-- MAIN ACTIVITY -->
     <string name="activity_main_dialog_edit_delete_title">Action on item</string>
@@ -129,10 +152,6 @@
     <string name="add_game_dialog_description">Enter the name of the game</string>
     <string name="title_activity_wiki_edition">WikiEditionActivity</string>
 
-    <string name="activity_data_edition_dialog_save_title">Can not save</string>
-    <string name="activity_data_edition_dialog_save_message">Required fields are empty:
-        Data would not be saved.
-        </string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
