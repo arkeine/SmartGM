@@ -50,7 +50,22 @@
     <!--_____________________ FRAGMENT _____________________-->
 
     <!-- WIKI FRAGMENT -->
-    <string name="frag_wiki_page_label_name">Name</string>
+    <string name="frag_wiki_content_dummy">
+        #Example\n
+        This is a presentation example display because this field is empty.\n
+
+        \n##Edition mode\n
+        You can turn on/off the edition mode with one button in the action bar.
+        You have to found it by yourself !\n
+
+        \n##Syntax\n
+        Use the markdown for the pagination, it\'s easy !\n\n
+
+        You can make list :\n\n
+        \n- item1
+        \n- item2
+        \n\nAnd a lot of other fun stuff !
+    </string>
 
     <!--_____________________ ACTIVITY _____________________-->
 

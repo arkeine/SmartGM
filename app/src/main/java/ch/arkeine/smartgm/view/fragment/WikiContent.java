@@ -1,9 +1,8 @@
 package ch.arkeine.smartgm.view.fragment;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,18 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ToggleButton;
 
 import com.commonsware.cwac.anddown.AndDown;
 
 import ch.arkeine.smartgm.R;
 
 /**
- * Show a wiki page with a action bar button for enter in edition mode
+ * Show a wiki content page with a action bar button for enter in edition mode
  */
-public class WikiPage extends Fragment {
+public class WikiContent extends Fragment {
 
     /* ============================================ */
     // STATIC
@@ -34,8 +31,8 @@ public class WikiPage extends Fragment {
     /**
      * Factory which build fragment with parameters
      */
-    public static WikiPage newInstance(String content) {
-        WikiPage fragment = new WikiPage();
+    public static WikiContent newInstance(@NonNull String content) {
+        WikiContent fragment = new WikiContent();
         Bundle args = new Bundle();
         args.putString(ARG_CONTENT, content);
         fragment.setArguments(args);
@@ -46,7 +43,7 @@ public class WikiPage extends Fragment {
     // CONSTRUCTOR
     /* ============================================ */
 
-    public WikiPage() {
+    public WikiContent() {
         // Required empty public constructor
     }
 
@@ -63,6 +60,7 @@ public class WikiPage extends Fragment {
             content = getArguments().getString(ARG_CONTENT);
         }
 
+        dummyContent = getResources().getString(R.string.frag_wiki_content_dummy);
         converter = new AndDown();
     }
 
@@ -70,12 +68,14 @@ public class WikiPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_wiki_page, container, false);
+        View v = inflater.inflate(R.layout.fragment_wiki_content, container, false);
 
         editDescription = (EditText) v.findViewById(R.id.description);
         editDescription.setText(content);
         display = (WebView) v.findViewById(R.id.display_view);
         display.setBackgroundColor(Color.TRANSPARENT);
+
+        updateComponent();
 
         return v;
     }
@@ -89,7 +89,8 @@ public class WikiPage extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_wiki_page:
-                mode();
+                isEditionMode = !isEditionMode;
+                updateComponent();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -107,26 +108,33 @@ public class WikiPage extends Fragment {
 
     public String getContent()
     {
-        return editDescription.getText().toString();
+        return content;
     }
 
     /* ============================================ */
     // PRIVATE
     /* ============================================ */
 
-    private void mode()
+    private void updateComponent()
     {
         if (isEditionMode) {
             editDescription.setVisibility(View.VISIBLE);
+            editDescription.setText(content);
             display.setVisibility(View.GONE);
             isEditionModeEnableOnce = true;
-            isEditionMode = false;
         } else {
+            content = editDescription.getText().toString();
             editDescription.setVisibility(View.GONE);
             display.setVisibility(View.VISIBLE);
-            String convertedData = converter.markdownToHtml(editDescription.getText().toString());
+
+            String convertedData;
+            if(content.isEmpty()){
+                convertedData = converter.markdownToHtml(dummyContent);
+            }else{
+                convertedData = converter.markdownToHtml(content);
+            }
+
             display.loadData(convertedData, "text/html", "UTF-8");
-            isEditionMode = true;
         }
     }
 
@@ -138,6 +146,7 @@ public class WikiPage extends Fragment {
     private String content;
 
     //tool
+    private String dummyContent;
     private boolean isEditionMode;
     private boolean isEditionModeEnableOnce;
     private AndDown converter;
