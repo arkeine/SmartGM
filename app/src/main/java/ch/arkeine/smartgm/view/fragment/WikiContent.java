@@ -2,7 +2,6 @@ package ch.arkeine.smartgm.view.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,23 +22,6 @@ import ch.arkeine.smartgm.R;
 public class WikiContent extends Fragment {
 
     /* ============================================ */
-    // STATIC
-    /* ============================================ */
-
-    private static final String ARG_CONTENT = "ARG_CONTENT";
-
-    /**
-     * Factory which build fragment with parameters
-     */
-    public static WikiContent newInstance(@NonNull String content) {
-        WikiContent fragment = new WikiContent();
-        Bundle args = new Bundle();
-        args.putString(ARG_CONTENT, content);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    /* ============================================ */
     // CONSTRUCTOR
     /* ============================================ */
 
@@ -56,11 +38,8 @@ public class WikiContent extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if (getArguments() != null) {
-            content = getArguments().getString(ARG_CONTENT);
-        }
-
         dummyContent = getResources().getString(R.string.frag_wiki_content_dummy);
+        content = "";
         converter = new AndDown();
     }
 
@@ -97,8 +76,8 @@ public class WikiContent extends Fragment {
         }
     }
 
-    /* ============================================ */
-    // PRIVATE
+	/* ============================================ */
+    // ASSESSOR / MUTATOR
     /* ============================================ */
 
     public boolean isContentModified()
@@ -109,6 +88,12 @@ public class WikiContent extends Fragment {
     public String getContent()
     {
         return content;
+    }
+
+    public void setContent(String content)
+    {
+        this.content = content;
+        updateComponent();
     }
 
     /* ============================================ */

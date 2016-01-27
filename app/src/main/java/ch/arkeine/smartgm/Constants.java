@@ -11,6 +11,9 @@ public final class Constants {
     /* ============================================ */
 
     //Default duration before switch automatically to the next view
+    public static final String DB_NAME = "smartgm-db";
+
+    //Default duration before switch automatically to the next view
     public static final int WELCOME_DEFAULT_TIMEOUT = 500;
 
     // Keyword for communicate the content in intent

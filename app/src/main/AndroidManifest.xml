@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ch.arkeine.smartgm" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ch.arkeine.smartgm">
+
+    <uses-sdk tools:overrideLibrary="info.android15.nucleus_support_v4, info.android15.nucleus_support_v7" />
 
     <application
         android:name=".SmartGmApplication"
@@ -8,34 +11,11 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".view.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+        android:theme="@style/AppTheme">
         <activity
             android:name=".view.UniverseEditionActivity"
             android:label="@string/activity_universe_setting_main_title" />
-        <activity
-            android:name=".view.GameEditionActivity"
-            android:label="@string/activity_game_setting_main_title" />
-        <activity
-            android:name=".view.DiceEditionActivity"
-            android:label="@string/activity_dice_setting_main_title" />
-        <activity
-            android:name=".view.TableEditionActivity"
-            android:label="@string/activity_table_setting_main_title" />
-        <activity
-            android:name=".view.WikiEditionActivity"
-            android:label="@string/title_activity_wiki_edition" />
-        <activity
-            android:name=".view.EntityEditionActivity"
-            android:label="@string/activity_entity_setting_main_title" />
-        <activity android:name=".view.DescriptionActivity" />
-        <activity android:name=".view.TimeLineEditionActivity" >
-        </activity>
-        <activity android:name=".view.activity.WelcomeActivity" >
+        <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.Main2Activity" />
+        <activity
+            android:name=".view.activity.HubActivity"
+            android:label="@string/title_activity_hub"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

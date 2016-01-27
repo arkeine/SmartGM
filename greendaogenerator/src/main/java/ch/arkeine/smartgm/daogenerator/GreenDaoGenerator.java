@@ -14,38 +14,38 @@ public class GreenDaoGenerator {
         // ENTITIES DECLARATION
         /* ============================================ */
 
-        Entity universe = schema.addEntity("Universes");
+        Entity universe = schema.addEntity("Universe");
         universe.addIdProperty();
         universe.addStringProperty("name");
         universe.addStringProperty("description");
 
-        Entity game = schema.addEntity("Games");
+        Entity game = schema.addEntity("Game");
         game.addIdProperty();
         game.addStringProperty("Name");
         game.addStringProperty("description");
 
-        Entity wiki = schema.addEntity("Wikis");
+        Entity wiki = schema.addEntity("Wiki");
         wiki.addIdProperty();
         wiki.addStringProperty("name");
         wiki.addStringProperty("description");
 
-        Entity timeLine = schema.addEntity("Timelines");
+        Entity timeLine = schema.addEntity("Timeline");
         timeLine.addIdProperty();
         timeLine.addDateProperty("date");
         timeLine.addStringProperty("description");
 
-        Entity table = schema.addEntity("Tables");
+        Entity table = schema.addEntity("Table");
         table.addIdProperty();
         table.addDateProperty("name");
         table.addStringProperty("description");
 
-        Entity tableItem = schema.addEntity("Tableitems");
+        Entity tableItem = schema.addEntity("Tableitem");
         tableItem.addIdProperty();
         tableItem.addDateProperty("name");
         tableItem.addStringProperty("description");
         tableItem.addIntProperty("weight");
 
-        Entity dice = schema.addEntity("Dices");
+        Entity dice = schema.addEntity("Dice");
         dice.addIdProperty();
         dice.addIntProperty("face");
         dice.addIntProperty("count");
@@ -94,7 +94,7 @@ public class GreenDaoGenerator {
             Property fk = tableItem.addLongProperty("fk_table_id").getProperty();
             tableItem.addToOne(table, fk);
             ToMany tableToMany = table.addToMany(tableItem, fk);
-            tableToMany.setName("tableitem");
+            tableToMany.setName("tableitems");
         }
 
         new DaoGenerator().generateAll(schema, "app/src/main/java/");

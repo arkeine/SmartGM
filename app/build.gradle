@@ -46,15 +46,7 @@ dependencies {
 dependencies {
     compile 'info.android15.nucleus:nucleus:2.0.5'
     compile 'info.android15.nucleus:nucleus-support-v4:2.0.5'
-}
-
-// icepick lib : save state (https://github.com/frankiesardo/icepick)
-repositories {
-    maven {url "https://clojars.org/repo/"}
-}
-dependencies {
-    compile 'frankiesardo:icepick:3.1.0'
-    provided 'frankiesardo:icepick-processor:3.1.0'
+    compile 'info.android15.nucleus:nucleus-support-v7:2.0.5'
 }
 
 // anddown lib : markup parser (https://github.com/commonsguy/cwac-anddown)

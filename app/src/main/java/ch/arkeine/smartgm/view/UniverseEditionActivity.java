@@ -1,20 +1,22 @@
 package ch.arkeine.smartgm.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.app.FragmentManager;
 import android.widget.EditText;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.database.dal.UniversePersistence;
-import ch.arkeine.smartgm.presenter.UniverseEditionPresenter;
+import ch.arkeine.smartgm.presenter.edition.UniverseEditionPresenter;
+import ch.arkeine.smartgm.view.fragment.DataEditionButtons;
+import ch.arkeine.smartgm.view.fragment.WikiContent;
+import nucleus.factory.RequiresPresenter;
+import nucleus.view.NucleusActionBarActivity;
+import nucleus.view.NucleusFragmentActivity;
 
-import static ch.arkeine.smartgm.Constants.getOrDefault;
-
-public class UniverseEditionActivity extends DescribableEditionActivity {
+@RequiresPresenter(UniverseEditionPresenter.class)
+public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEditionPresenter>
+    implements DataEditionButtons.OnDataEditionButtonClickedListener{
 
     /* ============================================ */
     // OVERRIDE
@@ -23,76 +25,60 @@ public class UniverseEditionActivity extends DescribableEditionActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLayoutStub(R.layout.content_universe_edition);
+        setContentView(R.layout.activity_universe_edition);
 
         // Get components from view
         editTextTitle = (EditText) findViewById(R.id.name);
-
-        // Create the presenter and load data
-        if (presenter == null)
-            presenter = new UniverseEditionPresenter(new UniversePersistence(this));
-        presenter.onTakeView(this);
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        wikiContentDescription = (WikiContent) fragmentManager.findFragmentById(R.id.description);
 
         // Get the parameter from the intent
         Intent intent = getIntent();
-        String mode = getOrDefault(intent.getStringExtra(Constants.KEY_MODE_CONTENT), Constants.MODE_CREATE);
-
-        if (Constants.MODE_MODIFY.equals(mode)) {
-            long id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
-            presenter.loadObjectDAO(id);
-        }
+        long id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
+        getPresenter().loadUniverse(id);
     }
 
     @Override
-    protected void onSave() {
-        String title = editTextTitle.getText().toString();
-
-        if (title.isEmpty()) {
-            //TODO
-        }
-        else
-        {
-            presenter.setName(editTextTitle.getText().toString());
-            presenter.saveObjectDAO();
-        }
+    public void onButtonSaveClicked() {
+        getPresenter().saveUniverse();
+        finish();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(KEY_NAME_CONTENT, editTextTitle.getText().toString());
+    public void onButtonCancelClicked() {
+        finish();
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        editTextTitle.setText(savedInstanceState.getString(KEY_NAME_CONTENT));
+    public void onButtonReloadClicked() {
+        getPresenter().reloadData();
     }
 
-    @Override
-    protected String getDescription(){
-        return presenter.getDescription();
-    }
-
-    @Override
-    protected void setDescription(String s){
-        presenter.setDescription(s);
-    }
-
-    /* ============================================ */
-    // DATA MANIPULATION
+	/* ============================================ */
+    // ASSESSOR / MUTATOR
     /* ============================================ */
 
-    public void setName(String s) {
-        editTextTitle.setText(s);
+    public String getName() {
+        return editTextTitle.getText().toString();
+    }
+
+    public void setName(String name) {
+        editTextTitle.setText(name);
+    }
+
+    public String getDescription() {
+        return wikiContentDescription.getContent();
+    }
+
+    public void setDescription(String description) {
+        wikiContentDescription.setContent(description);
     }
 
     /* ============================================ */
     // FIELD
     /* ============================================ */
 
-    private static UniverseEditionPresenter presenter;
+    //gui
     private EditText editTextTitle;
-
-    private static final String KEY_NAME_CONTENT = "NAME";
+    private WikiContent wikiContentDescription;
 }
