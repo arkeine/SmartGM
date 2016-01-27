@@ -18,24 +18,24 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
-        UniversesDao.createTable(db, ifNotExists);
-        GamesDao.createTable(db, ifNotExists);
-        WikisDao.createTable(db, ifNotExists);
-        TimelinesDao.createTable(db, ifNotExists);
-        TablesDao.createTable(db, ifNotExists);
-        TableitemsDao.createTable(db, ifNotExists);
-        DicesDao.createTable(db, ifNotExists);
+        UniverseDao.createTable(db, ifNotExists);
+        GameDao.createTable(db, ifNotExists);
+        WikiDao.createTable(db, ifNotExists);
+        TimelineDao.createTable(db, ifNotExists);
+        TableDao.createTable(db, ifNotExists);
+        TableitemDao.createTable(db, ifNotExists);
+        DiceDao.createTable(db, ifNotExists);
     }
     
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(SQLiteDatabase db, boolean ifExists) {
-        UniversesDao.dropTable(db, ifExists);
-        GamesDao.dropTable(db, ifExists);
-        WikisDao.dropTable(db, ifExists);
-        TimelinesDao.dropTable(db, ifExists);
-        TablesDao.dropTable(db, ifExists);
-        TableitemsDao.dropTable(db, ifExists);
-        DicesDao.dropTable(db, ifExists);
+        UniverseDao.dropTable(db, ifExists);
+        GameDao.dropTable(db, ifExists);
+        WikiDao.dropTable(db, ifExists);
+        TimelineDao.dropTable(db, ifExists);
+        TableDao.dropTable(db, ifExists);
+        TableitemDao.dropTable(db, ifExists);
+        DiceDao.dropTable(db, ifExists);
     }
     
     public static abstract class OpenHelper extends SQLiteOpenHelper {
@@ -67,13 +67,13 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(SQLiteDatabase db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(UniversesDao.class);
-        registerDaoClass(GamesDao.class);
-        registerDaoClass(WikisDao.class);
-        registerDaoClass(TimelinesDao.class);
-        registerDaoClass(TablesDao.class);
-        registerDaoClass(TableitemsDao.class);
-        registerDaoClass(DicesDao.class);
+        registerDaoClass(UniverseDao.class);
+        registerDaoClass(GameDao.class);
+        registerDaoClass(WikiDao.class);
+        registerDaoClass(TimelineDao.class);
+        registerDaoClass(TableDao.class);
+        registerDaoClass(TableitemDao.class);
+        registerDaoClass(DiceDao.class);
     }
     
     public DaoSession newSession() {

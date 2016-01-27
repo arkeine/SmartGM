@@ -18,100 +18,100 @@ import de.greenrobot.dao.internal.DaoConfig;
  */
 public class DaoSession extends AbstractDaoSession {
 
-    private final DaoConfig universesDaoConfig;
-    private final DaoConfig gamesDaoConfig;
-    private final DaoConfig wikisDaoConfig;
-    private final DaoConfig timelinesDaoConfig;
-    private final DaoConfig tablesDaoConfig;
-    private final DaoConfig tableitemsDaoConfig;
-    private final DaoConfig dicesDaoConfig;
+    private final DaoConfig universeDaoConfig;
+    private final DaoConfig gameDaoConfig;
+    private final DaoConfig wikiDaoConfig;
+    private final DaoConfig timelineDaoConfig;
+    private final DaoConfig tableDaoConfig;
+    private final DaoConfig tableitemDaoConfig;
+    private final DaoConfig diceDaoConfig;
 
-    private final UniversesDao universesDao;
-    private final GamesDao gamesDao;
-    private final WikisDao wikisDao;
-    private final TimelinesDao timelinesDao;
-    private final TablesDao tablesDao;
-    private final TableitemsDao tableitemsDao;
-    private final DicesDao dicesDao;
+    private final UniverseDao universeDao;
+    private final GameDao gameDao;
+    private final WikiDao wikiDao;
+    private final TimelineDao timelineDao;
+    private final TableDao tableDao;
+    private final TableitemDao tableitemDao;
+    private final DiceDao diceDao;
 
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
 
-        universesDaoConfig = daoConfigMap.get(UniversesDao.class).clone();
-        universesDaoConfig.initIdentityScope(type);
+        universeDaoConfig = daoConfigMap.get(UniverseDao.class).clone();
+        universeDaoConfig.initIdentityScope(type);
 
-        gamesDaoConfig = daoConfigMap.get(GamesDao.class).clone();
-        gamesDaoConfig.initIdentityScope(type);
+        gameDaoConfig = daoConfigMap.get(GameDao.class).clone();
+        gameDaoConfig.initIdentityScope(type);
 
-        wikisDaoConfig = daoConfigMap.get(WikisDao.class).clone();
-        wikisDaoConfig.initIdentityScope(type);
+        wikiDaoConfig = daoConfigMap.get(WikiDao.class).clone();
+        wikiDaoConfig.initIdentityScope(type);
 
-        timelinesDaoConfig = daoConfigMap.get(TimelinesDao.class).clone();
-        timelinesDaoConfig.initIdentityScope(type);
+        timelineDaoConfig = daoConfigMap.get(TimelineDao.class).clone();
+        timelineDaoConfig.initIdentityScope(type);
 
-        tablesDaoConfig = daoConfigMap.get(TablesDao.class).clone();
-        tablesDaoConfig.initIdentityScope(type);
+        tableDaoConfig = daoConfigMap.get(TableDao.class).clone();
+        tableDaoConfig.initIdentityScope(type);
 
-        tableitemsDaoConfig = daoConfigMap.get(TableitemsDao.class).clone();
-        tableitemsDaoConfig.initIdentityScope(type);
+        tableitemDaoConfig = daoConfigMap.get(TableitemDao.class).clone();
+        tableitemDaoConfig.initIdentityScope(type);
 
-        dicesDaoConfig = daoConfigMap.get(DicesDao.class).clone();
-        dicesDaoConfig.initIdentityScope(type);
+        diceDaoConfig = daoConfigMap.get(DiceDao.class).clone();
+        diceDaoConfig.initIdentityScope(type);
 
-        universesDao = new UniversesDao(universesDaoConfig, this);
-        gamesDao = new GamesDao(gamesDaoConfig, this);
-        wikisDao = new WikisDao(wikisDaoConfig, this);
-        timelinesDao = new TimelinesDao(timelinesDaoConfig, this);
-        tablesDao = new TablesDao(tablesDaoConfig, this);
-        tableitemsDao = new TableitemsDao(tableitemsDaoConfig, this);
-        dicesDao = new DicesDao(dicesDaoConfig, this);
+        universeDao = new UniverseDao(universeDaoConfig, this);
+        gameDao = new GameDao(gameDaoConfig, this);
+        wikiDao = new WikiDao(wikiDaoConfig, this);
+        timelineDao = new TimelineDao(timelineDaoConfig, this);
+        tableDao = new TableDao(tableDaoConfig, this);
+        tableitemDao = new TableitemDao(tableitemDaoConfig, this);
+        diceDao = new DiceDao(diceDaoConfig, this);
 
-        registerDao(Universes.class, universesDao);
-        registerDao(Games.class, gamesDao);
-        registerDao(Wikis.class, wikisDao);
-        registerDao(Timelines.class, timelinesDao);
-        registerDao(Tables.class, tablesDao);
-        registerDao(Tableitems.class, tableitemsDao);
-        registerDao(Dices.class, dicesDao);
+        registerDao(Universe.class, universeDao);
+        registerDao(Game.class, gameDao);
+        registerDao(Wiki.class, wikiDao);
+        registerDao(Timeline.class, timelineDao);
+        registerDao(Table.class, tableDao);
+        registerDao(Tableitem.class, tableitemDao);
+        registerDao(Dice.class, diceDao);
     }
     
     public void clear() {
-        universesDaoConfig.getIdentityScope().clear();
-        gamesDaoConfig.getIdentityScope().clear();
-        wikisDaoConfig.getIdentityScope().clear();
-        timelinesDaoConfig.getIdentityScope().clear();
-        tablesDaoConfig.getIdentityScope().clear();
-        tableitemsDaoConfig.getIdentityScope().clear();
-        dicesDaoConfig.getIdentityScope().clear();
+        universeDaoConfig.getIdentityScope().clear();
+        gameDaoConfig.getIdentityScope().clear();
+        wikiDaoConfig.getIdentityScope().clear();
+        timelineDaoConfig.getIdentityScope().clear();
+        tableDaoConfig.getIdentityScope().clear();
+        tableitemDaoConfig.getIdentityScope().clear();
+        diceDaoConfig.getIdentityScope().clear();
     }
 
-    public UniversesDao getUniversesDao() {
-        return universesDao;
+    public UniverseDao getUniverseDao() {
+        return universeDao;
     }
 
-    public GamesDao getGamesDao() {
-        return gamesDao;
+    public GameDao getGameDao() {
+        return gameDao;
     }
 
-    public WikisDao getWikisDao() {
-        return wikisDao;
+    public WikiDao getWikiDao() {
+        return wikiDao;
     }
 
-    public TimelinesDao getTimelinesDao() {
-        return timelinesDao;
+    public TimelineDao getTimelineDao() {
+        return timelineDao;
     }
 
-    public TablesDao getTablesDao() {
-        return tablesDao;
+    public TableDao getTableDao() {
+        return tableDao;
     }
 
-    public TableitemsDao getTableitemsDao() {
-        return tableitemsDao;
+    public TableitemDao getTableitemDao() {
+        return tableitemDao;
     }
 
-    public DicesDao getDicesDao() {
-        return dicesDao;
+    public DiceDao getDiceDao() {
+        return diceDao;
     }
 
 }
