@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+mainClassName = "ch.arkeine.smartgm.daogenerator.GreenDaoGenerator"
+
+// greenDAO lib : Manage DB (https://github.com/greenrobot/greenDAO)
+dependencies {
+    compile 'org.freemarker:freemarker:2.3.23'
+    compile 'de.greenrobot:greendao-generator:2.0.0'
+}

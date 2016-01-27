@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -26,10 +27,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:anddown:0.2.+'
-}
-
-dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
@@ -40,4 +37,38 @@ dependencies {
 }
 dependencies {
     compile 'com.android.support:support-v4:23.+'
+}
+dependencies {
+    compile 'com.android.support:support-v4:23.+'
+}
+
+// nucleus lib : MVP easy (https://github.com/konmik/nucleus)
+dependencies {
+    compile 'info.android15.nucleus:nucleus:2.0.5'
+    compile 'info.android15.nucleus:nucleus-support-v4:2.0.5'
+}
+
+// icepick lib : save state (https://github.com/frankiesardo/icepick)
+repositories {
+    maven {url "https://clojars.org/repo/"}
+}
+dependencies {
+    compile 'frankiesardo:icepick:3.1.0'
+    provided 'frankiesardo:icepick-processor:3.1.0'
+}
+
+// anddown lib : markup parser (https://github.com/commonsguy/cwac-anddown)
+dependencies {
+    compile 'com.commonsware.cwac:anddown:0.2.+'
+}
+
+// ParcelablePlease lib : generate parcelable (https://github.com/sockeqwe/ParcelablePlease)
+dependencies {
+    compile 'com.hannesdorfmann.parcelableplease:annotation:1.0.2'
+    apt 'com.hannesdorfmann.parcelableplease:processor:1.0.2'
+}
+
+// greenDAO lib : Manage DB (https://github.com/greenrobot/greenDAO)
+dependencies {
+    compile 'de.greenrobot:greendao:2.0.0'
 }
