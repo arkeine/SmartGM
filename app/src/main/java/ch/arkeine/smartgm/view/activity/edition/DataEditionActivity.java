@@ -1,8 +1,5 @@
-package ch.arkeine.smartgm.view.activity;
+package ch.arkeine.smartgm.view.activity.edition;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;

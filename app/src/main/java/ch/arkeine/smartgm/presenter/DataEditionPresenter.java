@@ -2,7 +2,7 @@ package ch.arkeine.smartgm.presenter;
 
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.PersistenceInterface;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 
 /**

@@ -3,9 +3,7 @@ package ch.arkeine.smartgm.model.database.migrations.m2;
 import android.database.sqlite.SQLiteDatabase;
 
 import ch.arkeine.smartgm.model.database.DataBaseSyntaxTool;
-import ch.arkeine.smartgm.model.database.contracts.EntityTableContract;
 import ch.arkeine.smartgm.model.database.migrations.DataBaseMigration;
-import ch.arkeine.smartgm.model.database.migrations.m1.CreateTableTable;
 
 import static ch.arkeine.smartgm.model.database.DataBaseSyntaxTool.INT_TYPE;
 import static ch.arkeine.smartgm.model.database.DataBaseSyntaxTool.TEXT_TYPE;

@@ -16,7 +16,7 @@ import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.database.dal.WikiPagePersistence;
 import ch.arkeine.smartgm.presenter.WikiEditionPresenter;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 

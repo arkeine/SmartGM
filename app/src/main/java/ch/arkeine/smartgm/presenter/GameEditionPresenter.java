@@ -5,8 +5,8 @@ import ch.arkeine.smartgm.model.dao.object.Game;
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.GamePersistenceInterface;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.UniversePersistenceInterface;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.GameEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 
 /**

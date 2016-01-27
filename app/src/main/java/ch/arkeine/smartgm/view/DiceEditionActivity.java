@@ -13,7 +13,7 @@ import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.dao.object.Dice;
 import ch.arkeine.smartgm.model.database.dal.DicePersistence;
 import ch.arkeine.smartgm.presenter.DiceEditionPresenter;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 

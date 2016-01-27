@@ -13,7 +13,6 @@ import ch.arkeine.smartgm.model.dao.object.Universe;
 import ch.arkeine.smartgm.model.dao.object.WikiPage;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.DicePersistenceInterface;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.EntityPersistenceInterface;
-import ch.arkeine.smartgm.model.dao.persistenceinterface.EntityValuePersistenceInterface;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.GamePersistenceInterface;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.TablePersistenceInterface;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.TimeLinePersistenceInterface;

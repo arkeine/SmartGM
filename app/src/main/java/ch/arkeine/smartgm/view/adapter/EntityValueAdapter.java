@@ -11,7 +11,6 @@ import java.util.List;
 
 import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.model.dao.object.EntityValue;
-import ch.arkeine.smartgm.model.dao.object.TableItem;
 
 /**
  * Created by arkeine on 11/9/15.

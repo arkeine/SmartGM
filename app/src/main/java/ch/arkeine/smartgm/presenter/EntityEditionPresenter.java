@@ -7,8 +7,8 @@ import ch.arkeine.smartgm.model.dao.object.Entity;
 import ch.arkeine.smartgm.model.dao.object.EntityValue;
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.database.dal.EntityPersistence;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.EntityEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 /**
  * Presenter for the entity edition

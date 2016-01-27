@@ -7,8 +7,8 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.object.TimeLine;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.TimeLinePersistenceInterface;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.TimeLineEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 /**
  * Presenter for the time line edition

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import ch.arkeine.smartgm.model.dao.object.TimeLine;

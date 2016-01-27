@@ -14,7 +14,7 @@ import com.commonsware.cwac.anddown.AndDown;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 

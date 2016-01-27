@@ -7,8 +7,8 @@ import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.object.Table;
 import ch.arkeine.smartgm.model.dao.object.TableItem;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.TablePersistenceInterface;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.TableEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 
 /**

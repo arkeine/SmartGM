@@ -4,8 +4,8 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.model.dao.object.Dice;
 import ch.arkeine.smartgm.model.dao.object.ObjectWithIdentifier;
 import ch.arkeine.smartgm.model.dao.persistenceinterface.DicePersistenceInterface;
-import ch.arkeine.smartgm.view.activity.DataEditionActivity;
 import ch.arkeine.smartgm.view.DiceEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.DataEditionActivity;
 
 
 /**
