@@ -18,7 +18,6 @@ import java.util.TimerTask;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.view.UniverseEditionActivity;
 
 /**
  * This class is just a fun welcome screen
@@ -107,7 +106,7 @@ public class WelcomeActivity extends Activity {
 
     private void switchToNextActivity(){
         finish();
-        Intent intent = new Intent(WelcomeActivity.this, HubActivity.class);
+        Intent intent = new Intent(this, HubActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out_slow);
         startActivity(intent);
     }

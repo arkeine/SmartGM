@@ -7,14 +7,15 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.model.handler.DataBaseHandler;
-import ch.arkeine.smartgm.view.UniverseEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.EditionListActivity;
 import nucleus.presenter.Presenter;
+
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 
 /**
- * Presenter for the universe edition
+ * Presenter for the all data type listing
  */
-public class EditionListPresenter extends Presenter<UniverseEditionActivity> {
+public class EditionListPresenter extends Presenter<EditionListActivity> {
 
     /* ============================================ */
     // OVERRIDE
@@ -39,9 +40,9 @@ public class EditionListPresenter extends Presenter<UniverseEditionActivity> {
     }
 
     @Override
-    protected void onTakeView(UniverseEditionActivity universeEditionActivity) {
-        super.onTakeView(universeEditionActivity);
-        activity = universeEditionActivity;
+    protected void onTakeView(EditionListActivity editionListActivity) {
+        super.onTakeView(editionListActivity);
+        activity = editionListActivity;
         publish();
     }
 
@@ -70,8 +71,8 @@ public class EditionListPresenter extends Presenter<UniverseEditionActivity> {
 
     public void saveUniverse(){
         if (activity != null){
-            universe.setName(activity.getName());
-            universe.setDescription(activity.getDescription());
+            //universe.setName(activity.getName());
+            //universe.setDescription(activity.getDescription());
 
             DataBaseHandler helper = SmartGmApplication.createDataBaseHandler();
             helper.getSession().getUniverseDao().insertOrReplace(universe);
@@ -89,8 +90,8 @@ public class EditionListPresenter extends Presenter<UniverseEditionActivity> {
 
     private void publish(){
         if(activity != null){
-            activity.setDescription(universe.getDescription());
-            activity.setName(universe.getName());
+            //activity.setDescription(universe.getDescription());
+            //activity.setName(universe.getName());
         }
     }
 
@@ -99,7 +100,7 @@ public class EditionListPresenter extends Presenter<UniverseEditionActivity> {
     /* ============================================ */
 
     private Universe universe;
-    private UniverseEditionActivity activity;
+    private EditionListActivity activity;
 
     /* ============================================ */
     // STATIC

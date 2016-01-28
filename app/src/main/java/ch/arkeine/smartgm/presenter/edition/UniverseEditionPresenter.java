@@ -2,15 +2,15 @@ package ch.arkeine.smartgm.presenter.edition;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
-import ch.arkeine.smartgm.model.DaoSession;
 import ch.arkeine.smartgm.model.Universe;
-import ch.arkeine.smartgm.model.UniverseDao;
 import ch.arkeine.smartgm.model.handler.DataBaseHandler;
-import ch.arkeine.smartgm.view.UniverseEditionActivity;
+import ch.arkeine.smartgm.view.activity.edition.UniverseEditionActivity;
 import nucleus.presenter.Presenter;
+
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 
 /**
@@ -27,30 +27,45 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
         super.onCreate(savedState);
 
         this.universe = new Universe();
-        this.universe.setId(savedState.getLong(ATR_ID, Constants.INVALID_ID));
-        this.universe.setName(getOrDefault(savedState.getString(ATR_NAME), ""));
-        this.universe.setDescription(getOrDefault(savedState.getString(ATR_DESCRIPTION), ""));
+        if(savedState != null) {
+            this.universe.setId(savedState.getLong(ATR_ID, Constants.INVALID_ID));
+            this.universe.setName(getOrDefault(savedState.getString(ATR_NAME), ""));
+            this.universe.setDescription(getOrDefault(savedState.getString(ATR_DESCRIPTION), ""));
+        }
+        Log.d("PRESENTER TEST", "PRESENTER onCreate");
     }
 
     @Override
     protected void onSave(@NonNull Bundle savedState) {
         super.onSave(savedState);
-        savedState.putLong(ATR_ID, universe.getId());
-        savedState.putString(ATR_NAME, universe.getName());
-        savedState.putString(ATR_DESCRIPTION, universe.getDescription());
+        if(universe.getId() != null) {
+            savedState.putLong(ATR_ID, universe.getId());
+        }
+            savedState.putString(ATR_NAME, universe.getName());
+            savedState.putString(ATR_DESCRIPTION, universe.getDescription());
+
+        Log.d("PRESENTER TEST", "PRESENTER onSave");
     }
 
     @Override
     protected void onTakeView(UniverseEditionActivity universeEditionActivity) {
         super.onTakeView(universeEditionActivity);
-        activity = universeEditionActivity;
         publish();
+
+        Log.d("PRESENTER TEST", "PRESENTER onTakeView");
     }
 
     @Override
     protected void onDropView() {
         super.onDropView();
-        activity = null;
+
+        Log.d("PRESENTER TEST", "PRESENTER onDropView");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("PRESENTER TEST", "PRESENTER onDestroy");
     }
 
     /* ============================================ */
@@ -71,14 +86,12 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
     }
 
     public void saveUniverse(){
-        if (activity != null){
-            universe.setName(activity.getName());
-            universe.setDescription(activity.getDescription());
+        universe.setName(getView().getName());
+        universe.setDescription(getView().getDescription());
 
-            DataBaseHandler helper = SmartGmApplication.createDataBaseHandler();
-            helper.getSession().getUniverseDao().insertOrReplace(universe);
-            helper.close();
-        }
+        DataBaseHandler helper = SmartGmApplication.createDataBaseHandler();
+        helper.getSession().getUniverseDao().insertOrReplace(universe);
+        helper.close();
     }
 
     public void reloadData(){
@@ -90,10 +103,8 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
     /* ============================================ */
 
     private void publish(){
-        if(activity != null){
-            activity.setDescription(universe.getDescription());
-            activity.setName(universe.getName());
-        }
+        getView().setDescription(universe.getDescription());
+        getView().setName(universe.getName());
     }
 
     /* ============================================ */
@@ -101,7 +112,6 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
     /* ============================================ */
 
     private Universe universe;
-    private UniverseEditionActivity activity;
 
     /* ============================================ */
     // STATIC

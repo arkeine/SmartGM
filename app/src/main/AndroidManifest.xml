@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.UniverseEditionActivity"
+            android:name=".view.activity.edition.UniverseEditionActivity"
             android:label="@string/activity_universe_setting_main_title" />
         <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
@@ -23,10 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.Main2Activity" />
+
         <activity
             android:name=".view.activity.HubActivity"
             android:label="@string/title_activity_hub"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".view.activity.GameSelectionActivity" />
+
+        <activity
+            android:name=".view.activity.edition.EditionListActivity"
+            android:label="@string/title_activity_edition_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

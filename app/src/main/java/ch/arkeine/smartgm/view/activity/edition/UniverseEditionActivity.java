@@ -3,6 +3,7 @@ package ch.arkeine.smartgm.view.activity.edition;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.widget.EditText;
 
 import ch.arkeine.smartgm.Constants;
@@ -12,7 +13,6 @@ import ch.arkeine.smartgm.view.fragment.DataEditionButtons;
 import ch.arkeine.smartgm.view.fragment.WikiContent;
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusActionBarActivity;
-import nucleus.view.NucleusFragmentActivity;
 
 @RequiresPresenter(UniverseEditionPresenter.class)
 public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEditionPresenter>
@@ -36,6 +36,38 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
         Intent intent = getIntent();
         long id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
         getPresenter().loadUniverse(id);
+
+        Log.d("PRESENTER TEST", "ACTIVITY onCreate");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("PRESENTER TEST", "ACTIVITY onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("PRESENTER TEST", "ACTIVITY onResume");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("PRESENTER TEST", "ACTIVITY onDestroy");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("PRESENTER TEST", "ACTIVITY onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("PRESENTER TEST", "ACTIVITY onStop");
     }
 
     @Override

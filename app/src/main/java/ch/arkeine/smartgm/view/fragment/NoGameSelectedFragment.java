@@ -1,7 +1,6 @@
 package ch.arkeine.smartgm.view.fragment;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,15 +11,20 @@ import ch.arkeine.smartgm.R;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class NoGameSelectedFragment extends Fragment {
 
+    /* ============================================ */
+    // CONSTRUCTOR
+    /* ============================================ */
 
     public NoGameSelectedFragment() {
         // Required empty public constructor
     }
 
+    /* ============================================ */
+    // OVERRIDE
+    /* ============================================ */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

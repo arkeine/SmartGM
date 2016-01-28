@@ -62,5 +62,8 @@ dependencies {
 
 // greenDAO lib : Manage DB (https://github.com/greenrobot/greenDAO)
 dependencies {
+    compile 'com.android.support:support-v4:23.+'
+}
+dependencies {
     compile 'de.greenrobot:greendao:2.0.0'
 }

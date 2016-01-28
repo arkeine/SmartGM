@@ -3,34 +3,41 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_universe"
+            android:icon="@drawable/planet"
+            android:title="@string/func_universe_title" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_game"
+            android:icon="@drawable/game"
+            android:title="@string/func_game_title" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_dice"
+            android:icon="@drawable/dice"
+            android:title="@string/func_dice_title" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_table"
+            android:icon="@drawable/question"
+            android:title="@string/func_table_title" />
+        <item
+            android:id="@+id/nav_wiki"
+            android:icon="@drawable/sheet"
+            android:title="@string/func_wiki_title" />
+        <item
+            android:id="@+id/nav_model"
+            android:icon="@drawable/sheet"
+            android:title="@string/func_model_title" />
+        <item
+            android:id="@+id/nav_timeline"
+            android:icon="@drawable/timeline"
+            android:title="@string/func_timeline_title" />
+        <item
+            android:id="@+id/nav_statistic"
+            android:icon="@drawable/statistic"
+            android:title="@string/func_statistic_title" />
+        <item
+            android:id="@+id/nav_inventory"
+            android:icon="@android:drawable/ic_menu_send"
+            android:title="@string/func_inventory_title" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>

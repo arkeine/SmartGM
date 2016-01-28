@@ -1,5 +1,8 @@
 package ch.arkeine.smartgm;
 
+import android.content.Context;
+import android.widget.Toast;
+
 /**
  * This class hold constants which are shared by many classes
  */
@@ -22,11 +25,6 @@ public final class Constants {
     public static final String KEY_ENTITY_TYPE_CONTENT = "ENTITY_TYPE";
     public static final String KEY_DESCRIPTION_CONTENT = "DESCRIPTION";
 
-    // Mode type of an edition activity
-    public static final String MODE_CREATE = "CREATE";
-    public static final String MODE_MODIFY = "MODIFY";
-    public static final String MODE_USE = "USE";
-
     // Invalid ID for SQLite databases
     public static final long INVALID_ID = -1;
 
@@ -39,5 +37,10 @@ public final class Constants {
 
     public static String getOrDefault(String value, String defaultValue) {
         return value == null ? defaultValue : value;
+    }
+
+    public static void displaySoon(Context c) {
+        Toast toast = Toast.makeText(c, R.string.message_soon, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

@@ -4,6 +4,12 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/action_game_selection"
+        android:title="@string/activity_main_action_game_selection"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_edition"
         android:title="@string/activity_main_action_editions"
         android:orderInCategory="100"
