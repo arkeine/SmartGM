@@ -1,0 +1,30 @@
+LIFE CYCLE
+
+//Go to the view
+
+PRESENTER onCreate
+ACTIVITY onCreate
+ACTIVITY onStart
+PRESENTER onTakeView
+ACTIVITY onResume
+
+//Push menu button (minimize)
+
+PRESENTER onSave
+PRESENTER onDropView
+ACTIVITY onPause
+ACTIVITY onStop
+
+//Press the app icon (maximize)
+
+ACTIVITY onStart
+PRESENTER onTakeView
+ACTIVITY onResume
+
+//Press back button (finalise)
+
+PRESENTER onDropView
+PRESENTER onDestroy
+ACTIVITY onPause
+ACTIVITY onStop
+ACTIVITY onDestroy

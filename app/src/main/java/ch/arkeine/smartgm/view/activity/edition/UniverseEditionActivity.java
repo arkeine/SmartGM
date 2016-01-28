@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.view;
+package ch.arkeine.smartgm.view.activity.edition;
 
 import android.content.Intent;
 import android.os.Bundle;
