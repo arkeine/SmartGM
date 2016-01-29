@@ -34,45 +34,12 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
 
         // Get the parameter from the intent
         Intent intent = getIntent();
-        long id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
-        getPresenter().loadUniverse(id);
-
-        Log.d("PRESENTER TEST", "ACTIVITY onCreate");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("PRESENTER TEST", "ACTIVITY onPause");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("PRESENTER TEST", "ACTIVITY onResume");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("PRESENTER TEST", "ACTIVITY onDestroy");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("PRESENTER TEST", "ACTIVITY onStart");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("PRESENTER TEST", "ACTIVITY onStop");
+        id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
     }
 
     @Override
     public void onButtonSaveClicked() {
-        getPresenter().saveUniverse();
+        saveToDatabase = true;
         finish();
     }
 
@@ -89,6 +56,14 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
 	/* ============================================ */
     // ASSESSOR / MUTATOR
     /* ============================================ */
+
+    public long getId() {
+        return id;
+    }
+
+    public boolean isSaveToDatabase() {
+        return saveToDatabase;
+    }
 
     public String getName() {
         return editTextTitle.getText().toString();
@@ -110,6 +85,10 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
     // FIELD
     /* ============================================ */
 
+    //input
+    private long id;
+    //tool
+    private boolean saveToDatabase;
     //gui
     private EditText editTextTitle;
     private WikiContent wikiContentDescription;
