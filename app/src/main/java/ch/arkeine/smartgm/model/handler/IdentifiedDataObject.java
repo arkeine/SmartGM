@@ -5,5 +5,5 @@ package ch.arkeine.smartgm.model.handler;
  */
 public interface IdentifiedDataObject {
     long getUniqueId();
-    Class getDataType();
+    String getListingText();
 }

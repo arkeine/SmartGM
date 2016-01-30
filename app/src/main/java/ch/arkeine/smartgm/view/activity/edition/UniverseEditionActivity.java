@@ -27,12 +27,10 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_universe_edition);
 
-        // Get components from view
         editTextTitle = (EditText) findViewById(R.id.name);
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         wikiContentDescription = (WikiContent) fragmentManager.findFragmentById(R.id.description);
 
-        // Get the parameter from the intent
         Intent intent = getIntent();
         id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
     }

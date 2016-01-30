@@ -34,7 +34,7 @@
         <activity
             android:name=".view.activity.edition.EditionListActivity"
             android:label="@string/title_activity_edition_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

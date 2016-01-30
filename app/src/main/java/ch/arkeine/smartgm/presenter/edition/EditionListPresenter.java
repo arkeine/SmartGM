@@ -2,12 +2,23 @@ package ch.arkeine.smartgm.presenter.edition;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
+import ch.arkeine.smartgm.model.Dice;
+import ch.arkeine.smartgm.model.Game;
+import ch.arkeine.smartgm.model.Table;
+import ch.arkeine.smartgm.model.Timeline;
 import ch.arkeine.smartgm.model.Universe;
+import ch.arkeine.smartgm.model.Wiki;
 import ch.arkeine.smartgm.model.handler.DataBaseHandler;
+import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
 import ch.arkeine.smartgm.view.activity.edition.EditionListActivity;
+import ch.arkeine.smartgm.view.activity.edition.UniverseEditionActivity;
 import nucleus.presenter.Presenter;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
@@ -24,89 +35,104 @@ public class EditionListPresenter extends Presenter<EditionListActivity> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
-        this.universe = new Universe();
-        this.universe.setId(savedState.getLong(ATR_ID, Constants.INVALID_ID));
-        this.universe.setName(getOrDefault(savedState.getString(ATR_NAME), ""));
-        this.universe.setDescription(getOrDefault(savedState.getString(ATR_DESCRIPTION), ""));
+        this.helper = SmartGmApplication.createDataBaseHandler();
+        this.dataType = DATA_TYPE.UNIVERSE;
+        //No restore, no need backup on process fail
     }
 
     @Override
-    protected void onSave(@NonNull Bundle savedState) {
-        super.onSave(savedState);
-        savedState.putLong(ATR_ID, universe.getId());
-        savedState.putString(ATR_NAME, universe.getName());
-        savedState.putString(ATR_DESCRIPTION, universe.getDescription());
+    protected void onDestroy() {
+        super.onDestroy();
+        this.helper.close();
     }
+
 
     @Override
     protected void onTakeView(EditionListActivity editionListActivity) {
         super.onTakeView(editionListActivity);
-        activity = editionListActivity;
         publish();
-    }
-
-    @Override
-    protected void onDropView() {
-        super.onDropView();
-        activity = null;
     }
 
     /* ============================================ */
     // ASSESSOR / MUTATOR
     /* ============================================ */
 
-    /**
-     * Give a universe ID or Constants.INVALID_ID for new universe
-     */
-    public void loadUniverse(long universeId) {
-        if(universeId == Constants.INVALID_ID){
-            universe = new Universe();
-        }else if(universeId != universe.getId()){
-            DataBaseHandler helper = SmartGmApplication.createDataBaseHandler();
-            universe = helper.getSession().getUniverseDao().load(universeId);
-            helper.close();
-        }
+    public DATA_TYPE getDataType() {
+        return dataType;
     }
 
-    public void saveUniverse(){
-        if (activity != null){
-            //universe.setName(activity.getName());
-            //universe.setDescription(activity.getDescription());
-
-            DataBaseHandler helper = SmartGmApplication.createDataBaseHandler();
-            helper.getSession().getUniverseDao().insertOrReplace(universe);
-            helper.close();
-        }
-    }
-
-    public void reloadData(){
+    public void setDataType(DATA_TYPE dataType) {
+        this.dataType = dataType;
         publish();
+    }
+
+    public void remove(IdentifiedDataObject itemAtPosition){
+        switch (dataType) {
+            case UNIVERSE:
+                helper.getSession().getUniverseDao().delete((Universe)itemAtPosition);
+                break;
+            case GAME:
+                helper.getSession().getGameDao().delete((Game)itemAtPosition);
+                break;
+            case DICE:
+                helper.getSession().getDiceDao().delete((Dice) itemAtPosition);
+                break;
+            case TABLE:
+                helper.getSession().getTableDao().delete((Table)itemAtPosition);
+                break;
+            case WIKI:
+                helper.getSession().getWikiDao().delete((Wiki)itemAtPosition);
+                break;
+            case TIME_LINE:
+                helper.getSession().getTimelineDao().delete((Timeline)itemAtPosition);
+                break;
+        }
+        helper.getSession().clear();
+        publish();
+    }
+
+    public void externalModificationOnDataSignal(){
+        helper.getSession().clear();
     }
 
     /* ============================================ */
     // PRIVATE
     /* ============================================ */
 
-    private void publish(){
-        if(activity != null){
-            //activity.setDescription(universe.getDescription());
-            //activity.setName(universe.getName());
+    private void publish() {
+        List l;
+        switch (dataType) {
+            case UNIVERSE:
+                l = helper.getSession().getUniverseDao().loadAll();
+                break;
+            case GAME:
+                l = helper.getSession().getGameDao().loadAll();
+                break;
+            case DICE:
+                l = helper.getSession().getDiceDao().loadAll();
+                break;
+            case TABLE:
+                l = helper.getSession().getTableDao().loadAll();
+                break;
+            case WIKI:
+                l = helper.getSession().getWikiDao().loadAll();
+                break;
+            case TIME_LINE:
+                l = helper.getSession().getTimelineDao().loadAll();
+                break;
+            default:
+                l = new ArrayList(0);
         }
+        getView().setListContent(l);
+        Log.d("TEST", "TOTOT"+l);
     }
 
     /* ============================================ */
     // FIELD
     /* ============================================ */
 
-    private Universe universe;
-    private EditionListActivity activity;
+    private DataBaseHandler helper;
+    private DATA_TYPE dataType;
 
-    /* ============================================ */
-    // STATIC
-    /* ============================================ */
-
-    private static String ATR_ID = EditionListPresenter.class.getName()+"id";
-    private static String ATR_NAME = EditionListPresenter.class.getName()+"name";
-    private static String ATR_DESCRIPTION = EditionListPresenter.class.getName()+"description";
+    public enum DATA_TYPE {UNIVERSE, GAME, DICE, TABLE, WIKI, TIME_LINE}
 }

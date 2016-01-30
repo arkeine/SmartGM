@@ -37,19 +37,20 @@ public class GreenDaoGenerator {
 
         Entity timeLine = schema.addEntity("Timeline");
         timeLine.addIdProperty();
+        timeLine.addStringProperty("name");
         timeLine.addDateProperty("date");
         timeLine.addStringProperty("description");
         timeLine.implementsInterface(identifiedDataObjectInterface);
 
         Entity table = schema.addEntity("Table");
         table.addIdProperty();
-        table.addDateProperty("name");
+        table.addStringProperty("name");
         table.addStringProperty("description");
         table.implementsInterface(identifiedDataObjectInterface);
 
         Entity tableItem = schema.addEntity("Tableitem");
         tableItem.addIdProperty();
-        tableItem.addDateProperty("name");
+        tableItem.addStringProperty("name");
         tableItem.addStringProperty("description");
         tableItem.addIntProperty("weight");
         tableItem.implementsInterface(identifiedDataObjectInterface);

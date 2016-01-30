@@ -74,12 +74,18 @@
 
     <!-- HUB ACTIVITY -->
     <string name="title_activity_hub">Hub</string>
+    <string name="act_hub_menu_select_game">Select game</string>
+    <string name="act_hub_menu_data_edition">Data edition</string>
+    <string name="act_hub_menu_setting">Settings</string>
 
     <!-- EDITION_LIST ACTIVITY -->
     <string name="title_activity_edition_list">Edition</string>
     <string name="act_edition_list_menu_add">Add item</string>
     <string name="act_edition_list_drawer_title">Data type</string>
+    <string name="act_edition_popup_remove_title">Confirmation</string>
+    <string name="act_edition_popup_remove_content">Do you really want to delete this item ?</string>
 
+    <!--_____________________ ACTIVITY NO PROPER _____________________-->
     <!-- MAIN ACTIVITY -->
     <string name="activity_main_dialog_edit_delete_title">Action on item</string>
     <!-- Title of the menu item -->

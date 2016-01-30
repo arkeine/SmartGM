@@ -33,9 +33,6 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(getView().isSaveToDatabase()){
-            helper.getSession().getUniverseDao().insertOrReplace(universe);
-        }
         this.helper.close();
     }
 
@@ -52,6 +49,10 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
 
         universe.setName(getView().getName());
         universe.setDescription(getView().getDescription());
+
+        if(getView().isSaveToDatabase()){
+            helper.getSession().getUniverseDao().insertOrReplace(universe);
+        }
     }
 
     /* ============================================ */
@@ -73,12 +74,14 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
     }
 
     private void loadUniverse(long universeId) {
-        if(universeId == Constants.INVALID_ID)
-            if(universe.getId() != null)
-                createNew();
-        else
-            if(universe.getId() == null || universeId != universe.getId())
+        if(universeId == Constants.INVALID_ID) {
+            if (universe.getId() != null)
+                universe = new Universe();
+        }
+        else {
+            if (universe.getId() == null || universeId != universe.getId())
                 universe = helper.getSession().getUniverseDao().load(universeId);
+        }
     }
 
     private void createNew(){

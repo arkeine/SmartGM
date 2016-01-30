@@ -39,7 +39,6 @@ public class WikiContent extends Fragment {
         setHasOptionsMenu(true);
 
         dummyContent = getResources().getString(R.string.frag_wiki_content_dummy);
-        content = "";
         converter = new AndDown();
     }
 
@@ -50,7 +49,6 @@ public class WikiContent extends Fragment {
         View v = inflater.inflate(R.layout.fragment_wiki_content, container, false);
 
         editDescription = (EditText) v.findViewById(R.id.description);
-        editDescription.setText(content);
         display = (WebView) v.findViewById(R.id.display_view);
         display.setBackgroundColor(Color.TRANSPARENT);
 
@@ -85,14 +83,12 @@ public class WikiContent extends Fragment {
         return isEditionModeEnableOnce;
     }
 
-    public String getContent()
-    {
-        return content;
+    public String getContent(){
+        return editDescription.getText().toString();
     }
 
-    public void setContent(String content)
-    {
-        this.content = content;
+    public void setContent(String content) {
+        editDescription.setText(content);
         updateComponent();
     }
 
@@ -100,15 +96,14 @@ public class WikiContent extends Fragment {
     // PRIVATE
     /* ============================================ */
 
-    private void updateComponent()
-    {
+    private void updateComponent(){
+        String content = editDescription.getText().toString();
+
         if (isEditionMode) {
             editDescription.setVisibility(View.VISIBLE);
-            editDescription.setText(content);
             display.setVisibility(View.GONE);
             isEditionModeEnableOnce = true;
         } else {
-            content = editDescription.getText().toString();
             editDescription.setVisibility(View.GONE);
             display.setVisibility(View.VISIBLE);
 
@@ -126,9 +121,6 @@ public class WikiContent extends Fragment {
     /* ============================================ */
     // FIELD
     /* ============================================ */
-
-    //input
-    private String content;
 
     //tool
     private String dummyContent;

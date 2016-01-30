@@ -1,5 +1,7 @@
 package ch.arkeine.smartgm.view.activity.edition;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,13 +11,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
 import ch.arkeine.smartgm.presenter.edition.EditionListPresenter;
+import ch.arkeine.smartgm.view.adapter.SimpleDataAdapter;
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusActionBarActivity;
+import static ch.arkeine.smartgm.presenter.edition.EditionListPresenter.DATA_TYPE;
 
 @RequiresPresenter(EditionListPresenter.class)
 public class EditionListActivity extends NucleusActionBarActivity<EditionListPresenter>
@@ -41,6 +51,21 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        listData = (ListView) findViewById(R.id.list_multi_content);
+        listData.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                removeContent((IdentifiedDataObject) listData.getItemAtPosition(position));
+                return true;
+            }
+        });
+        listData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editContent((IdentifiedDataObject) listData.getItemAtPosition(position));
+            }
+        });
     }
 
     @Override
@@ -65,8 +90,7 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
         int id = item.getItemId();
 
         if (id == R.id.action_add) {
-            Intent intent = createIntent();
-            if(intent != null) startActivity(intent);
+            addContent();
             return true;
         }
 
@@ -79,19 +103,18 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
         int id = item.getItemId();
 
         if (id == R.id.nav_universe) {
-            currentDataType = DataType.UNIVERSE;
+            getPresenter().setDataType(DATA_TYPE.UNIVERSE);
         } else if (id == R.id.nav_game) {
-            currentDataType = DataType.GAME;
+            getPresenter().setDataType(DATA_TYPE.GAME);
         } else if (id == R.id.nav_dice) {
-            currentDataType = DataType.DICE;
+            getPresenter().setDataType(DATA_TYPE.DICE);
         } else if (id == R.id.nav_table) {
-            currentDataType = DataType.TABLE;
+            getPresenter().setDataType(DATA_TYPE.TABLE);
         } else if (id == R.id.nav_wiki) {
-            currentDataType = DataType.WIKI;
+            getPresenter().setDataType(DATA_TYPE.WIKI);
         } else if (id == R.id.nav_timeline) {
-            currentDataType = DataType.TIME_LINE;
+            getPresenter().setDataType(DATA_TYPE.TIME_LINE);
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -102,28 +125,54 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
     // ASSESSOR / MUTATOR
     /* ============================================ */
 
+    public void setListContent(List list) {
+        ArrayAdapter adapter = new SimpleDataAdapter(this, list);
+        listData.setAdapter(adapter);
+    }
+
+
     /* ============================================ */
     // PRIVATE
     /* ============================================ */
 
-    /**
-     * Edit a tuple from the data
-     */
-    private void editContent(IdentifiedDataObject itemAtPosition) {
+    private void addContent() {
+        Intent intent = createIntent();
+        if(intent != null) {
+            startActivity(intent);
+            getPresenter().externalModificationOnDataSignal();
+        }
+    }
+
+    private void editContent(final IdentifiedDataObject itemAtPosition) {
         Intent intent = createIntent();
 
         if (intent != null) {
-            // Start activity
             intent.putExtra(Constants.KEY_ID_CONTENT, itemAtPosition.getUniqueId());
             startActivity(intent);
+            getPresenter().externalModificationOnDataSignal();
         }
     }
+
+    private void removeContent(final IdentifiedDataObject itemAtPosition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.act_edition_popup_remove_title)
+                .setMessage(R.string.act_edition_popup_remove_content)
+                .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getPresenter().remove(itemAtPosition);
+                    }
+                })
+                .setNegativeButton(R.string.button_no, null);
+        builder.show();
+    }
+
 
     private Intent createIntent() {
         Intent intent = null;
 
         // Select the activity for the data
-        switch (currentDataType) {
+        switch (getPresenter().getDataType()) {
             case UNIVERSE:
                 intent = new Intent(this, UniverseEditionActivity.class);
                 break;
@@ -135,6 +184,5 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
     // FIELD
     /* ============================================ */
 
-    private DataType currentDataType;
-    private enum DataType {UNIVERSE, DICE, GAME, TABLE, TIME_LINE, WIKI};
+    private ListView listData;
 }
