@@ -13,8 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activity.edition.UniverseEditionActivity"
-            android:label="@string/activity_universe_setting_main_title" />
+            android:name=".view.activity.editiondb.UniverseEditionActivity"
+            android:label="@string/title_game_edition" />
+        <activity
+            android:name=".view.activity.editiondb.GameEditionActivity"
+            android:label="@string/title_universe_edition" />
         <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -23,18 +26,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.activity.HubActivity"
             android:label="@string/title_activity_hub"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".view.activity.GameSelectionActivity" />
-
         <activity
-            android:name=".view.activity.edition.EditionListActivity"
+            android:name=".view.activity.editiondb.EditionListActivity"
             android:label="@string/title_activity_edition_list"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activity.DescriptionDisplayActivity"
+            android:label="@string/title_activity_description_display"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

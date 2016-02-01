@@ -1,13 +1,10 @@
 package ch.arkeine.smartgm.presenter.edition;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.Dice;
 import ch.arkeine.smartgm.model.Game;
@@ -17,11 +14,8 @@ import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.model.Wiki;
 import ch.arkeine.smartgm.model.handler.DataBaseHandler;
 import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
-import ch.arkeine.smartgm.view.activity.edition.EditionListActivity;
-import ch.arkeine.smartgm.view.activity.edition.UniverseEditionActivity;
+import ch.arkeine.smartgm.view.activity.editiondb.EditionListActivity;
 import nucleus.presenter.Presenter;
-
-import static ch.arkeine.smartgm.Constants.getOrDefault;
 
 /**
  * Presenter for the all data type listing
@@ -124,7 +118,6 @@ public class EditionListPresenter extends Presenter<EditionListActivity> {
                 l = new ArrayList(0);
         }
         getView().setListContent(l);
-        Log.d("TEST", "TOTOT"+l);
     }
 
     /* ============================================ */

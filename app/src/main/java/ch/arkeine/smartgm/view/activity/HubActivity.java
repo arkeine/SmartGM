@@ -1,22 +1,18 @@
 package ch.arkeine.smartgm.view.activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewStub;
-import android.widget.TextView;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.SmartGmApplication;
-import ch.arkeine.smartgm.view.activity.edition.EditionListActivity;
-import ch.arkeine.smartgm.view.activity.edition.UniverseEditionActivity;
+import ch.arkeine.smartgm.view.activity.editiondb.EditionListActivity;
+import ch.arkeine.smartgm.view.activity.editiondb.UniverseEditionActivity;
 
 public class HubActivity extends AppCompatActivity {
 
@@ -43,10 +39,9 @@ public class HubActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.hub, menu);
+        getMenuInflater().inflate(R.menu.activity_hub, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -69,5 +64,4 @@ public class HubActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

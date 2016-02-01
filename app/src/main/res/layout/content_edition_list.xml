@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ch.arkeine.smartgm.view.activity.edition.EditionListActivity"
+    tools:context="ch.arkeine.smartgm.view.activity.editiondb.EditionListActivity"
     tools:showIn="@layout/app_bar_edition_list">
 
     <ListView

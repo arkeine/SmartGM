@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.view.activity.edition;
+package ch.arkeine.smartgm.view.activity.editiondb;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -81,7 +81,7 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edition_list, menu);
+        getMenuInflater().inflate(R.menu.activity_edition_list, menu);
         return true;
     }
 
@@ -175,6 +175,9 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
         switch (getPresenter().getDataType()) {
             case UNIVERSE:
                 intent = new Intent(this, UniverseEditionActivity.class);
+                break;
+            case GAME:
+                intent = new Intent(this, GameEditionActivity.class);
                 break;
         }
         return intent;
