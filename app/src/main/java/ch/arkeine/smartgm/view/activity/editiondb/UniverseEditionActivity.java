@@ -3,6 +3,7 @@ package ch.arkeine.smartgm.view.activity.editiondb;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 
 import ch.arkeine.smartgm.Constants;
@@ -25,6 +26,9 @@ public class UniverseEditionActivity extends NucleusActionBarActivity<UniverseEd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_universe_edition);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         editTextTitle = (EditText) findViewById(R.id.name);
         FragmentManager fragmentManager = this.getSupportFragmentManager();

@@ -14,11 +14,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activity.editiondb.UniverseEditionActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_universe_edition" />
         <activity
             android:name=".view.activity.editiondb.GameEditionActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_game_edition" />
-        <activity android:name=".view.activity.WelcomeActivity">
+        <activity android:name=".view.activity.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +40,7 @@
         <activity
             android:name=".view.activity.DescriptionDisplayActivity"
             android:label="@string/title_activity_description_display"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

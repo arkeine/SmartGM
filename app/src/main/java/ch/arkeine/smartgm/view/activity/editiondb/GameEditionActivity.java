@@ -1,10 +1,13 @@
 package ch.arkeine.smartgm.view.activity.editiondb;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +20,14 @@ import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.model.Game;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.presenter.edition.GameEditionPresenter;
+import ch.arkeine.smartgm.view.activity.DescriptionDisplayActivity;
 import ch.arkeine.smartgm.view.fragment.DataEditionButtons;
 import ch.arkeine.smartgm.view.fragment.ForeignKeySelector;
 import ch.arkeine.smartgm.view.fragment.WikiContent;
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusActionBarActivity;
+
+import static ch.arkeine.smartgm.Constants.getOrDefault;
 
 @RequiresPresenter(GameEditionPresenter.class)
 public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPresenter>
@@ -36,6 +42,9 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_edition);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         editTextTitle = (EditText) findViewById(R.id.name);
         FragmentManager fragmentManager = this.getSupportFragmentManager();
@@ -56,7 +65,9 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
         int id = item.getItemId();
 
         if (id == R.id.action_edit_wiki_page) {
-            Constants.displaySoon(this);
+            Intent intent = new Intent(this, DescriptionDisplayActivity.class);
+            intent.putExtra(Constants.KEY_DESCRIPTION_CONTENT, getDescription());
+            startActivityForResult(intent, 1);
             return true;
         }
 
@@ -64,22 +75,36 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = getOrDefault(intent.getStringExtra(Constants.KEY_DESCRIPTION_CONTENT), "");
+                getPresenter().externalDescriptionUpdate(result);
+            }
+        }
+    }
+
+    @Override
     public void onButtonSaveClicked() {
 
         //Missing universe : not save
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(GameEditionActivity.this);
-        builder.setTitle(R.string.act_game_edition_popup_cascade_title)
-                .setMessage(R.string.act_game_edition_popup_cascade_content)
-                .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveToDatabase = true;
-                        finish();
-                    }
-                })
-                .setNegativeButton(R.string.button_no, null);
-        builder.show();
+        if(foreignKeySelectorUniverse.getSelectedItem() == null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameEditionActivity.this);
+            builder.setTitle(R.string.act_game_edition_popup_cascade_title)
+                    .setMessage(R.string.act_game_edition_popup_cascade_content)
+                    .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveToDatabase = true;
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.button_no, null);
+            builder.show();
+        }else{
+            saveToDatabase = true;
+            finish();
+        }
     }
 
     @Override

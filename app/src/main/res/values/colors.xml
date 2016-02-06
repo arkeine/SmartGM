@@ -7,4 +7,5 @@
     <color name="color_disable">#c7c7c7</color>
     <color name="color_text_light">#FFFFFF</color>
     <color name="color_text_dark">#000000</color>
+    <color name="color_border">#eaeaea</color>
 </resources>

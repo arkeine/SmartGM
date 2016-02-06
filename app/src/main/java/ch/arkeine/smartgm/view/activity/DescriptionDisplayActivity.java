@@ -27,6 +27,9 @@ public class DescriptionDisplayActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description_display);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         wikiContentDescription = (WikiContent) fragmentManager.findFragmentById(R.id.description);
 
@@ -41,12 +44,14 @@ public class DescriptionDisplayActivity extends AppCompatActivity implements
         returnIntent.putExtra(Constants.KEY_DESCRIPTION_CONTENT,
                 wikiContentDescription.getContent());
         setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 
     @Override
     public void onButtonCancelClicked() {
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 
     @Override

@@ -28,16 +28,14 @@
     </style>
 
     <style name="large_text_with_background" parent="text_with_background">
-        <item name="android:textColor">@color/color_text_light</item>
         <item name="android:textSize">25sp</item>
     </style>
 
     <style name="large_text_without_background" parent="text_without_background">
-        <item name="android:textColor">@color/color_text_dark</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">25sp</item>
     </style>
 
-    <!--_____________________ TEXTS _____________________-->
+    <!--_____________________ BUTTON _____________________-->
 
     <style name="inconspicuous_button">
         <item name="android:textColor">@color/color_text_light</item>
@@ -49,4 +47,11 @@
         <item name="android:background">@color/color_accent</item>
     </style>
 
+    <!--_____________________ TITLE BAR _____________________-->
+
+    <style name="action_bar_style" parent="@style/AppTheme.NoActionBar">
+        <item name="titleTextStyle">@style/large_text_with_background</item>
+
+        <item name="android:textColor">@color/color_accent</item>
+    </style>
 </resources>

@@ -1,6 +1,7 @@
 package ch.arkeine.smartgm.presenter.edition;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 
@@ -63,6 +64,10 @@ public class GameEditionPresenter extends Presenter<GameEditionActivity>{
 
     public void reloadData(){
         publish();
+    }
+
+    public void externalDescriptionUpdate(String description){
+        game.setDescription(description);
     }
 
     /* ============================================ */

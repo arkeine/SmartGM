@@ -16,25 +16,19 @@ import ch.arkeine.smartgm.view.activity.editiondb.UniverseEditionActivity;
 
 public class HubActivity extends AppCompatActivity {
 
+    /* ============================================ */
+    // OVERRIDE
+    /* ============================================ */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_hub);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //loadContentPage();
-    }
-
-    private void loadContentPage() {
-        if(SmartGmApplication.filterManager.isGameSelected()) {
-
-        } else {
-            ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
-            //stub.setLayoutResource(layoutStub);
-            stub.inflate();
-        }
     }
 
     @Override
@@ -63,5 +57,19 @@ public class HubActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /* ============================================ */
+    // PRIVATE
+    /* ============================================ */
+
+    private void loadContentPage() {
+        if(SmartGmApplication.filterManager.isGameSelected()) {
+
+        } else {
+            ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
+            //stub.setLayoutResource(layoutStub);
+            stub.inflate();
+        }
     }
 }
