@@ -98,6 +98,9 @@
     <string name="title_game_edition">Game setting</string>
     <string name="act_game_edition_name_label">Name</string>
     <string name="act_game_edition_universe_label">Universe</string>
+    <string name="act_game_edition_popup_cascade_title">WARNING</string>
+    <string name="act_game_edition_popup_cascade_content">No universe set. This game will not be save.\n\nDo you really want to discare changes ?</string>
+
 
     <!--_____________________ ACTIVITY NO PROPER _____________________-->
     <!-- MAIN ACTIVITY -->

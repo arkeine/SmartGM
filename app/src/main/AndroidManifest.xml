@@ -14,10 +14,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.activity.editiondb.UniverseEditionActivity"
-            android:label="@string/title_game_edition" />
+            android:label="@string/title_universe_edition" />
         <activity
             android:name=".view.activity.editiondb.GameEditionActivity"
-            android:label="@string/title_universe_edition" />
+            android:label="@string/title_game_edition" />
         <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">

@@ -1,5 +1,7 @@
 package ch.arkeine.smartgm.view.activity.editiondb;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
+import ch.arkeine.smartgm.model.Game;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.presenter.edition.GameEditionPresenter;
 import ch.arkeine.smartgm.view.fragment.DataEditionButtons;
@@ -52,18 +55,8 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_edit_wiki_page) {
             Constants.displaySoon(this);
-            return true;
-        } else if (id == R.id.action_edition) {
-            //Switch to the listing edition activity
-            Intent intent = new Intent(this, EditionListActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.action_game_selection) {
-            //Switch to the listing edition activity
-            Intent intent = new Intent(this, UniverseEditionActivity.class);
-            startActivity(intent);
             return true;
         }
 
@@ -72,8 +65,21 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
 
     @Override
     public void onButtonSaveClicked() {
-        saveToDatabase = true;
-        finish();
+
+        //Missing universe : not save
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameEditionActivity.this);
+        builder.setTitle(R.string.act_game_edition_popup_cascade_title)
+                .setMessage(R.string.act_game_edition_popup_cascade_content)
+                .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveToDatabase = true;
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.button_no, null);
+        builder.show();
     }
 
     @Override
