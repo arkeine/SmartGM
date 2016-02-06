@@ -1,7 +1,6 @@
 package ch.arkeine.smartgm.presenter.edition;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
@@ -9,7 +8,7 @@ import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.Game;
 import ch.arkeine.smartgm.model.Universe;
-import ch.arkeine.smartgm.model.handler.DataBaseHandler;
+import ch.arkeine.smartgm.model.helper.DataBaseHandler;
 import ch.arkeine.smartgm.view.activity.editiondb.GameEditionActivity;
 import nucleus.presenter.Presenter;
 

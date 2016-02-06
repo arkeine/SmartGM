@@ -2,7 +2,7 @@ package ch.arkeine.smartgm;
 
 import android.app.Application;
 
-import ch.arkeine.smartgm.model.handler.DataBaseHandler;
+import ch.arkeine.smartgm.model.helper.DataBaseHandler;
 
 /**
  * Custom application class which hold some global object

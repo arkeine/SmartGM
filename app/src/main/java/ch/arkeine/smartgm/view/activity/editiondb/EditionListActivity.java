@@ -20,7 +20,9 @@ import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
+import ch.arkeine.smartgm.model.Game;
+import ch.arkeine.smartgm.model.Universe;
+import ch.arkeine.smartgm.model.helper.IdentifiedDataObject;
 import ch.arkeine.smartgm.presenter.edition.EditionListPresenter;
 import ch.arkeine.smartgm.view.adapter.SimpleDataAdapter;
 import nucleus.factory.RequiresPresenter;
@@ -154,13 +156,35 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
     }
 
     private void removeContent(final IdentifiedDataObject itemAtPosition) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Create a warning before delete an item
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditionListActivity.this);
         builder.setTitle(R.string.act_edition_popup_remove_title)
                 .setMessage(R.string.act_edition_popup_remove_content)
                 .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getPresenter().remove(itemAtPosition);
+
+                        //Create a second warning for the item with on delete cascade
+
+                        if (itemAtPosition instanceof Universe ||
+                                itemAtPosition instanceof Game) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(
+                                    EditionListActivity.this);
+                            builder.setTitle(R.string.act_edition_popup_cascade_title)
+                                    .setMessage(R.string.act_edition_popup_cascade_content)
+                                    .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            getPresenter().remove(itemAtPosition);
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.button_no, null);
+                            builder.show();
+                        } else {
+                            getPresenter().remove(itemAtPosition);
+                        }
                     }
                 })
                 .setNegativeButton(R.string.button_no, null);

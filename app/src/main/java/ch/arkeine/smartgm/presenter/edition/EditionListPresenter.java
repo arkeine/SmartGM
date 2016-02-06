@@ -12,8 +12,9 @@ import ch.arkeine.smartgm.model.Table;
 import ch.arkeine.smartgm.model.Timeline;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.model.Wiki;
-import ch.arkeine.smartgm.model.handler.DataBaseHandler;
-import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
+import ch.arkeine.smartgm.model.helper.DataBaseHandler;
+import ch.arkeine.smartgm.model.helper.DeleteOnCascade;
+import ch.arkeine.smartgm.model.helper.IdentifiedDataObject;
 import ch.arkeine.smartgm.view.activity.editiondb.EditionListActivity;
 import nucleus.presenter.Presenter;
 
@@ -61,24 +62,25 @@ public class EditionListPresenter extends Presenter<EditionListActivity> {
     }
 
     public void remove(IdentifiedDataObject itemAtPosition){
+
         switch (dataType) {
             case UNIVERSE:
-                helper.getSession().getUniverseDao().delete((Universe)itemAtPosition);
+                DeleteOnCascade.deleteUniverse(helper.getSession(), (Universe) itemAtPosition);
                 break;
             case GAME:
-                helper.getSession().getGameDao().delete((Game)itemAtPosition);
+                DeleteOnCascade.deleteGame(helper.getSession(), (Game) itemAtPosition);
                 break;
             case DICE:
-                helper.getSession().getDiceDao().delete((Dice) itemAtPosition);
+                DeleteOnCascade.deleteDice(helper.getSession(), (Dice) itemAtPosition);
                 break;
             case TABLE:
-                helper.getSession().getTableDao().delete((Table)itemAtPosition);
+                DeleteOnCascade.deleteTable(helper.getSession(), (Table) itemAtPosition);
                 break;
             case WIKI:
-                helper.getSession().getWikiDao().delete((Wiki)itemAtPosition);
+                DeleteOnCascade.deleteWiki(helper.getSession(), (Wiki) itemAtPosition);
                 break;
             case TIME_LINE:
-                helper.getSession().getTimelineDao().delete((Timeline)itemAtPosition);
+                DeleteOnCascade.deleteTimeLine(helper.getSession(), (Timeline) itemAtPosition);
                 break;
         }
         helper.getSession().clear();

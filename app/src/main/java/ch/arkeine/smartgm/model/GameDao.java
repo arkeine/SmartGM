@@ -29,7 +29,7 @@ public class GameDao extends AbstractDao<Game, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Name = new Property(1, String.class, "Name", false, "NAME");
+        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
         public final static Property Fk_universe_id = new Property(3, Long.class, "fk_universe_id", false, "FK_UNIVERSE_ID");
     };
@@ -52,7 +52,7 @@ public class GameDao extends AbstractDao<Game, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"GAME\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"NAME\" TEXT," + // 1: Name
+                "\"NAME\" TEXT," + // 1: name
                 "\"DESCRIPTION\" TEXT," + // 2: description
                 "\"FK_UNIVERSE_ID\" INTEGER);"); // 3: fk_universe_id
     }
@@ -73,9 +73,9 @@ public class GameDao extends AbstractDao<Game, Long> {
             stmt.bindLong(1, id);
         }
  
-        String Name = entity.getName();
-        if (Name != null) {
-            stmt.bindString(2, Name);
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
         }
  
         String description = entity.getDescription();
@@ -106,7 +106,7 @@ public class GameDao extends AbstractDao<Game, Long> {
     public Game readEntity(Cursor cursor, int offset) {
         Game entity = new Game( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // Name
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // description
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // fk_universe_id
         );

@@ -87,6 +87,8 @@
     <string name="act_edition_list_drawer_title">Data type</string>
     <string name="act_edition_popup_remove_title">Confirmation</string>
     <string name="act_edition_popup_remove_content">Do you really want to delete this item ?</string>
+    <string name="act_edition_popup_cascade_title">WARNING</string>
+    <string name="act_edition_popup_cascade_content">If you remove this item, all the item linked with it will also be delete.\n\nDo you really want to delete this item ?</string>
 
     <!-- UNIVERSE EDITION ACTIVITY -->
     <string name="title_universe_edition">Universe setting</string>

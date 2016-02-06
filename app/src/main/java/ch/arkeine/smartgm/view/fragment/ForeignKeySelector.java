@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
+import ch.arkeine.smartgm.model.helper.IdentifiedDataObject;
 import ch.arkeine.smartgm.view.adapter.SimpleDataAdapter;
 
 

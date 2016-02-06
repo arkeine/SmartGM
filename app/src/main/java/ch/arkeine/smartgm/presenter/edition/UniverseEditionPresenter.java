@@ -5,7 +5,7 @@ import android.os.Bundle;
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.Universe;
-import ch.arkeine.smartgm.model.handler.DataBaseHandler;
+import ch.arkeine.smartgm.model.helper.DataBaseHandler;
 import ch.arkeine.smartgm.view.activity.editiondb.UniverseEditionActivity;
 import nucleus.presenter.Presenter;
 

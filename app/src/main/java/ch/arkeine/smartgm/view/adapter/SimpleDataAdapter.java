@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.handler.IdentifiedDataObject;
+import ch.arkeine.smartgm.model.helper.IdentifiedDataObject;
 
 /**
  * Created by Arkeine on 29.01.2016.

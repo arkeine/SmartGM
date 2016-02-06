@@ -25,7 +25,7 @@ public class GreenDaoGenerator {
 
         Entity game = schema.addEntity("Game");
         game.addIdProperty();
-        game.addStringProperty("Name");
+        game.addStringProperty("name");
         game.addStringProperty("description");
         game.implementsInterface(identifiedDataObjectInterface);
 

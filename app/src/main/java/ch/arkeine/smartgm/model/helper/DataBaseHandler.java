@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.model.handler;
+package ch.arkeine.smartgm.model.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

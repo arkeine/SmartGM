@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.model.handler;
+package ch.arkeine.smartgm.model.helper;
 
 /**
  * Created by Arkeine on 27.01.2016.
