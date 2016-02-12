@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.component;
+package ch.arkeine.smartgm.customclasses;
 
 import java.util.ArrayList;
 import java.util.Collection;
