@@ -140,7 +140,7 @@ public class Dice implements IdentifiedDataObject {
 
     @Override
     public String getListingText() {
-        return this.getFace().toString();
+        return this.getCount().toString()+"d"+this.getFace().toString();
     }
     // KEEP METHODS END
 

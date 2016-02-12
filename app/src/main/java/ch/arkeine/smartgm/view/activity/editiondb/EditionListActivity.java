@@ -203,6 +203,9 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
             case GAME:
                 intent = new Intent(this, GameEditionActivity.class);
                 break;
+            case DICE:
+                intent = new Intent(this, DiceEditionActivity.class);
+                break;
         }
         return intent;
     }

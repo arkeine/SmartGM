@@ -1,5 +1,5 @@
 <resources>
-    <declare-styleable name="NumberPickerView">
+    <declare-styleable name="NumberPicker">
         <attr name="minimumValue" format="integer" />
         <attr name="maximumValue" format="integer" />
         <attr name="currentValue" format="integer" />

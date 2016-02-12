@@ -101,6 +101,11 @@
     <string name="act_game_edition_popup_cascade_title">WARNING</string>
     <string name="act_game_edition_popup_cascade_content">No universe set. This game will not be save.\n\nDo you really want to discare changes ?</string>
 
+    <!-- DICE EDITION ACTIVITY -->
+    <string name="title_dice_edition">Dice setting</string>
+    <string name="act_dice_edition_face_label">Number of faces</string>
+    <string name="act_dice_edition_dice_label">Number of dices</string>
+    <string name="act_dice_edition_universe_label">Universe</string>
 
     <!--_____________________ ACTIVITY NO PROPER _____________________-->
     <!-- MAIN ACTIVITY -->

@@ -6,16 +6,16 @@ import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.SmartGmApplication;
-import ch.arkeine.smartgm.model.Game;
+import ch.arkeine.smartgm.model.Dice;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.model.helper.DataBaseHandler;
-import ch.arkeine.smartgm.view.activity.editiondb.GameEditionActivity;
+import ch.arkeine.smartgm.view.activity.editiondb.DiceEditionActivity;
 import nucleus.presenter.Presenter;
 
 /**
  * Presenter for the universe edition
  */
-public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
+public class DiceEditionPresenter extends Presenter<DiceEditionActivity>{
 
     /* ============================================ */
     // OVERRIDE
@@ -24,7 +24,7 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        game = new Game();
+        createNewDice();
         this.helper = SmartGmApplication.createDataBaseHandler();
         //No restore, no need backup on process fail
     }
@@ -37,7 +37,7 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
 
 
     @Override
-    protected void onTakeView(GameEditionActivity universeEditionActivity) {
+    protected void onTakeView(DiceEditionActivity universeEditionActivity) {
         super.onTakeView(universeEditionActivity);
         publish();
     }
@@ -46,14 +46,14 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
     protected void onDropView() {
         super.onDropView();
 
-        game.setName(getView().getName());
-        game.setDescription(getView().getDescription());
+        dice.setFace(getView().getNbFace());
+        dice.setCount(getView().getNbDice());
         fkUniverse = getView().getUniverse();
 
         if(fkUniverse != null && getView().isSaveToDatabase()){
-            helper.getSession().getGameDao().insertOrReplace(game);
-            game.setUniverse(fkUniverse);
-            helper.getSession().getGameDao().update(game);
+            helper.getSession().getDiceDao().insertOrReplace(dice);
+            dice.setUniverse(fkUniverse);
+            helper.getSession().getDiceDao().update(dice);
         }
     }
 
@@ -65,10 +65,6 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
         publish();
     }
 
-    public void externalDescriptionUpdate(String description){
-        game.setDescription(description);
-    }
-
     /* ============================================ */
     // PRIVATE
     /* ============================================ */
@@ -77,24 +73,31 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
         List<Universe> listUniverse = helper.getSession().getUniverseDao().loadAll();
         getView().setUniverseList(listUniverse);
 
-        loadGame(getView().getId());
-        getView().setName(game.getName());
-        getView().setDescription(game.getDescription());
+        loadDice(getView().getId());
+        getView().setNbDice(dice.getCount());
+        getView().setNbFace(dice.getFace());
         getView().setUniverse(fkUniverse);
     }
 
-    private void loadGame(long gameId) {
-        if(gameId == Constants.INVALID_ID) {
-            if (game.getId() != null){
-                game = new Game();
+    private void loadDice(long diceId) {
+        if(diceId == Constants.INVALID_ID) {
+            if (dice.getId() != null){
+                createNewDice();
                 fkUniverse = null;
             }
         } else {
-            if (game.getId() == null || gameId != game.getId()) {
-                game = helper.getSession().getGameDao().load(gameId);
-                fkUniverse = game.getUniverse();
+            if (dice.getId() == null || diceId != dice.getId()) {
+                dice = helper.getSession().getDiceDao().load(diceId);
+                fkUniverse = dice.getUniverse();
             }
         }
+    }
+
+    private void createNewDice(){
+        dice = new Dice();
+        dice.setCount(1);
+        dice.setFace(20);
+        dice.setFk_universe_id(null);
     }
 
     /* ============================================ */
@@ -102,7 +105,7 @@ public class DiceEditionPresenter extends Presenter<GameEditionActivity>{
     /* ============================================ */
 
     private DataBaseHandler helper;
-    private Game game;
+    private Dice dice;
     private Universe fkUniverse;
 
 }

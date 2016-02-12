@@ -1,4 +1,4 @@
-package ch.arkeine.smartgm.component;
+package ch.arkeine.smartgm.view.component;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,29 +22,24 @@ import ch.arkeine.smartgm.R;
  *
  * The interface is created by code inside the geometry method. It's just an exercise in style.
  */
-public class NumberPickerView extends LinearLayout {
+public class NumberPicker extends FrameLayout {
 
     /* ============================================ */
     // CONSTRUCTOR
     /* ============================================ */
 
-    public NumberPickerView(Context context) {
+    public NumberPicker(Context context) {
         this(context, null, 0);
     }
 
-    public NumberPickerView(Context context, AttributeSet attrs) {
+    public NumberPicker(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NumberPickerView(Context context, AttributeSet attrs, int defStyle) {
+    public NumberPicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
         geometry(attrs, defStyle);
         control(attrs, defStyle);
-
-        String namespace = "http://schemas.android.com/apk/res-auto";
-        setCurrent(attrs.getAttributeIntValue(namespace, "currentValue", 0));
-        setMax(attrs.getAttributeIntValue(namespace, "maximumValue", 0));
-        setMin(attrs.getAttributeIntValue(namespace, "minimumValue", 0));
     }
 
 	/* ============================================ */
@@ -79,19 +75,17 @@ public class NumberPickerView extends LinearLayout {
                 else
                 {
                     this.current = min;
-                    String message = getContext().getResources().getString(
+                    String message = getResources().getString(
                             R.string.components_numberpicker_minimal_value) + " " + min;
-                    Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-                    toast.show();
+                    makeToast(message);
                 }
             }
             else
             {
                 this.current = max;
-                String message = getContext().getResources().getString(
+                String message = getResources().getString(
                         R.string.components_numberpicker_maximal_value) + " " + max;
-                Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-                toast.show();
+                makeToast(message);
             }
             return true;
         }
@@ -111,6 +105,17 @@ public class NumberPickerView extends LinearLayout {
         }
     }
 
+    public boolean setValues(int min, int current, int max)
+    {
+        if(min <= current && current <= max)
+        {
+            this.min = min;
+            this.max = max;
+            this.current = current;
+            return true;
+        }
+        return false;
+    }
 
     /* ============================================ */
     // PRIVATE
@@ -119,43 +124,27 @@ public class NumberPickerView extends LinearLayout {
     private void geometry(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.NumberPickerView, defStyle, 0);
+                attrs, R.styleable.NumberPicker, defStyle, 0);
 
-        text = new EditText(getContext());
-        up = new ImageButton(getContext());
-        down = new ImageButton(getContext());
+        int orientation = a.getInteger(R.styleable.NumberPicker_orientation, 0);
 
-        text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        up.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        down.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-        text.setText("0");
-        text.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        text.setPadding(20, 20, 20, 20);
-        text.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
-        up.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.button_circle_shape));
-        down.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.button_circle_shape));
-
-        int orientation = a.getInteger(R.styleable.NumberPickerView_orientation, 0);
-        setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-
+        View v = null;
         if (orientation == 0) {
-            setOrientation(LinearLayout.HORIZONTAL);
-            addView(down);
-            addView(text);
-            addView(up);
-
-            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.rightwithe));
-            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.leftwithe));
+            v = inflate(getContext(), R.layout.component_number_picker_horizontal, null);
         } else {
-            setOrientation(LinearLayout.VERTICAL);
-            addView(up);
-            addView(text);
-            addView(down);
-
-            up.setImageDrawable(getContext().getResources().getDrawable(R.drawable.upwithe));
-            down.setImageDrawable(getContext().getResources().getDrawable(R.drawable.downwithe));
+            v = inflate(getContext(), R.layout.component_number_picker_vertical, null);
         }
+
+        text = (EditText) v.findViewById(R.id.text_number);
+        up = (ImageButton) v.findViewById(R.id.button_increase);
+        down = (ImageButton) v.findViewById(R.id.button_decrease);
+        addView(v);
+
+        int max = a.getInteger(R.styleable.NumberPicker_maximumValue, 0);
+        int min = a.getInteger(R.styleable.NumberPicker_minimumValue, 0);
+        int current = a.getInteger(R.styleable.NumberPicker_currentValue, 0);
+        setValues(min, current, max);
+        text.setText("" + current);
 
         a.recycle();
     }
@@ -195,6 +184,12 @@ public class NumberPickerView extends LinearLayout {
                 textChange();
             }
         });
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text.requestFocus();
+            }
+        });
     }
 
     private void buttonUpClicked() {
@@ -211,15 +206,19 @@ public class NumberPickerView extends LinearLayout {
             newValue = Integer.valueOf(text.getText().toString());
             setCurrent(newValue);
         } catch (NumberFormatException e) {
-            Toast toast = Toast.makeText(getContext(),
-                    R.string.components_numberpicker_numeric_only, Toast.LENGTH_SHORT);
-            toast.show();
+            String content = getResources().getString(R.string.components_numberpicker_numeric_only);
+            makeToast(content);
         }
         updateView(); // Update in all the case, event if value is not allowed
     }
 
     private void updateView() {
         text.setText(String.valueOf(current));
+    }
+
+    private void makeToast(String content){
+        Toast toast = Toast.makeText(getContext(), content, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     /* ============================================ */

@@ -7,6 +7,7 @@ import java.util.List;
 
 import ch.arkeine.smartgm.SmartGmApplication;
 import ch.arkeine.smartgm.model.Dice;
+import ch.arkeine.smartgm.model.DiceDao;
 import ch.arkeine.smartgm.model.Game;
 import ch.arkeine.smartgm.model.Table;
 import ch.arkeine.smartgm.model.Timeline;
@@ -105,7 +106,10 @@ public class EditionListPresenter extends Presenter<EditionListActivity> {
                 l = helper.getSession().getGameDao().loadAll();
                 break;
             case DICE:
-                l = helper.getSession().getDiceDao().loadAll();
+                l = helper.getSession().getDiceDao().queryBuilder().
+                        orderDesc(DiceDao.Properties.Face).
+                        orderDesc(DiceDao.Properties.Count).
+                        list();
                 break;
             case TABLE:
                 l = helper.getSession().getTableDao().loadAll();

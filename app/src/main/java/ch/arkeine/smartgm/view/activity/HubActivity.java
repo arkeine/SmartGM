@@ -11,6 +11,7 @@ import android.view.ViewStub;
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
 import ch.arkeine.smartgm.SmartGmApplication;
+import ch.arkeine.smartgm.view.activity.editiondb.DiceEditionActivity;
 import ch.arkeine.smartgm.view.activity.editiondb.EditionListActivity;
 import ch.arkeine.smartgm.view.activity.editiondb.UniverseEditionActivity;
 
@@ -51,7 +52,7 @@ public class HubActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_game_selection) {
             //Switch to the listing edition activity
-            Intent intent = new Intent(this, UniverseEditionActivity.class);
+            Intent intent = new Intent(this, DiceEditionActivity.class);
             startActivity(intent);
             return true;
         }
