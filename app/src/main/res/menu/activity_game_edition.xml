@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_edit_wiki_page"
-        android:title="@string/menu_activity_edition_description"
+        android:id="@+id/menu_game_edition_description"
+        android:title="@string/menu_game_edition_description"
         android:icon="@drawable/sheet"
         android:orderInCategory="50"
         app:showAsAction="ifRoom" />

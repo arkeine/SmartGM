@@ -17,6 +17,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_universe_edition" />
         <activity
+            android:name=".view.activity.editiondb.WikiEditionActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_activity_wiki_edition" />
+        <activity
             android:name=".view.activity.editiondb.DiceEditionActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_dice_edition" />

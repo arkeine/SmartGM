@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -17,9 +15,9 @@ import java.util.List;
 
 import ch.arkeine.smartgm.Constants;
 import ch.arkeine.smartgm.R;
-import ch.arkeine.smartgm.model.Game;
 import ch.arkeine.smartgm.model.Universe;
 import ch.arkeine.smartgm.presenter.edition.GameEditionPresenter;
+import ch.arkeine.smartgm.presenter.edition.WikiEditionPresenter;
 import ch.arkeine.smartgm.view.activity.DescriptionDisplayActivity;
 import ch.arkeine.smartgm.view.fragment.DataEditionButtons;
 import ch.arkeine.smartgm.view.fragment.ForeignKeySelector;
@@ -29,8 +27,8 @@ import nucleus.view.NucleusActionBarActivity;
 
 import static ch.arkeine.smartgm.Constants.getOrDefault;
 
-@RequiresPresenter(GameEditionPresenter.class)
-public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPresenter>
+@RequiresPresenter(WikiEditionPresenter.class)
+public class WikiEditionActivity extends NucleusActionBarActivity<WikiEditionPresenter>
     implements DataEditionButtons.OnDataEditionButtonClickedListener,
         ForeignKeySelector.OnFragmentInteractionListener {
 
@@ -41,7 +39,7 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_edition);
+        setContentView(R.layout.activity_wiki_edition);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,6 +47,7 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
         editTextTitle = (EditText) findViewById(R.id.name);
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         foreignKeySelectorUniverse = (ForeignKeySelector) fragmentManager.findFragmentById(R.id.selector);
+        wikiContentDescription = (WikiContent) fragmentManager.findFragmentById(R.id.wiki);
 
         Intent intent = getIntent();
         id = intent.getLongExtra(Constants.KEY_ID_CONTENT, Constants.INVALID_ID);
@@ -56,7 +55,7 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_game_edition, menu);
+        getMenuInflater().inflate(R.menu.activity_wiki_edition, menu);
         return true;
     }
 
@@ -64,7 +63,7 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.menu_game_edition_description) {
+        if (id == R.id.action_full_screen_wiki_page) {
             Intent intent = new Intent(this, DescriptionDisplayActivity.class);
             intent.putExtra(Constants.KEY_DESCRIPTION_CONTENT, getDescription());
             startActivityForResult(intent, 1);
@@ -89,7 +88,7 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
 
         //Missing universe : not save
         if(foreignKeySelectorUniverse.getSelectedItem() == null){
-            AlertDialog.Builder builder = new AlertDialog.Builder(GameEditionActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(WikiEditionActivity.this);
             builder.setTitle(R.string.act_game_edition_popup_cascade_title)
                     .setMessage(R.string.act_game_edition_popup_cascade_content)
                     .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
@@ -149,11 +148,11 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
     }
 
     public String getDescription() {
-        return description;
+        return wikiContentDescription.getContent();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        wikiContentDescription.setContent(description);
     }
 
     public Universe getUniverse() {
@@ -174,10 +173,10 @@ public class GameEditionActivity extends NucleusActionBarActivity<GameEditionPre
 
     //input/output
     private long id;
-    private String description;
     //tool
     private boolean saveToDatabase;
     //gui
+    private WikiContent wikiContentDescription;
     private EditText editTextTitle;
     private ForeignKeySelector foreignKeySelectorUniverse;
 

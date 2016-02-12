@@ -44,8 +44,8 @@ public class EditionListPresenter extends Presenter<EditionListActivity> {
 
 
     @Override
-    protected void onTakeView(EditionListActivity editionListActivity) {
-        super.onTakeView(editionListActivity);
+    protected void onTakeView(EditionListActivity activity) {
+        super.onTakeView(activity);
         publish();
     }
 

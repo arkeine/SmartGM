@@ -13,7 +13,7 @@ import ch.arkeine.smartgm.view.activity.editiondb.DiceEditionActivity;
 import nucleus.presenter.Presenter;
 
 /**
- * Presenter for the universe edition
+ * Presenter for the dice edition
  */
 public class DiceEditionPresenter extends Presenter<DiceEditionActivity>{
 
@@ -37,8 +37,8 @@ public class DiceEditionPresenter extends Presenter<DiceEditionActivity>{
 
 
     @Override
-    protected void onTakeView(DiceEditionActivity universeEditionActivity) {
-        super.onTakeView(universeEditionActivity);
+    protected void onTakeView(DiceEditionActivity activity) {
+        super.onTakeView(activity);
         publish();
     }
 
@@ -79,15 +79,15 @@ public class DiceEditionPresenter extends Presenter<DiceEditionActivity>{
         getView().setUniverse(fkUniverse);
     }
 
-    private void loadDice(long diceId) {
-        if(diceId == Constants.INVALID_ID) {
+    private void loadDice(long id) {
+        if(id == Constants.INVALID_ID) {
             if (dice.getId() != null){
                 createNewDice();
                 fkUniverse = null;
             }
         } else {
-            if (dice.getId() == null || diceId != dice.getId()) {
-                dice = helper.getSession().getDiceDao().load(diceId);
+            if (dice.getId() == null || id != dice.getId()) {
+                dice = helper.getSession().getDiceDao().load(id);
                 fkUniverse = dice.getUniverse();
             }
         }

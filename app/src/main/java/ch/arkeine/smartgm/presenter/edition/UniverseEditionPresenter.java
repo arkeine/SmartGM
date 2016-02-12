@@ -34,8 +34,8 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
 
 
     @Override
-    protected void onTakeView(UniverseEditionActivity universeEditionActivity) {
-        super.onTakeView(universeEditionActivity);
+    protected void onTakeView(UniverseEditionActivity activity) {
+        super.onTakeView(activity);
         publish();
     }
 
@@ -69,14 +69,14 @@ public class UniverseEditionPresenter extends Presenter<UniverseEditionActivity>
         getView().setDescription(universe.getDescription());
     }
 
-    private void loadUniverse(long universeId) {
-        if(universeId == Constants.INVALID_ID) {
+    private void loadUniverse(long id) {
+        if(id == Constants.INVALID_ID) {
             if (universe.getId() != null)
                 universe = new Universe();
         }
         else {
-            if (universe.getId() == null || universeId != universe.getId())
-                universe = helper.getSession().getUniverseDao().load(universeId);
+            if (universe.getId() == null || id != universe.getId())
+                universe = helper.getSession().getUniverseDao().load(id);
         }
     }
 

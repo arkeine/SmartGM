@@ -206,6 +206,9 @@ public class EditionListActivity extends NucleusActionBarActivity<EditionListPre
             case DICE:
                 intent = new Intent(this, DiceEditionActivity.class);
                 break;
+            case WIKI:
+                intent = new Intent(this, WikiEditionActivity.class);
+                break;
         }
         return intent;
     }
