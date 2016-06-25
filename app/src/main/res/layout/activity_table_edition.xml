@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/act_game_edition_name_label"/>
+                android:text="@string/act_table_edition_name_label"/>
 
             <EditText
                 android:id="@+id/name"
@@ -53,7 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/act_game_edition_universe_label"/>
+                android:text="@string/act_table_edition_universe_label"/>
 
             <fragment
                 android:name="ch.arkeine.smartgm.view.fragment.ForeignKeySelector"
@@ -64,6 +64,18 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignLeft="@+id/linearLayout"
                 android:layout_alignStart="@+id/linearLayout" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/act_table_edition_item_label"
+                android:id="@+id/textView" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView" />
         </LinearLayout>
 
         <fragment

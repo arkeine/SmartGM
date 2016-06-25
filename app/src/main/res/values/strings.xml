@@ -102,6 +102,13 @@
     <string name="act_game_edition_popup_cascade_content">No universe set. This game will not be save.\n\nDo you really want to discare changes ?</string>
     <string name="menu_game_edition_description">Description</string>
 
+    <!-- TABLE EDITION ACTIVITY -->
+    <string name="title_table_edition">Game setting</string>
+    <string name="act_table_edition_name_label">Name</string>
+    <string name="act_table_edition_universe_label">Universe</string>
+    <string name="act_table_edition_item_label">Content</string>
+    <string name="menu_table_edition_description">Description</string>
+
     <!-- WIKI EDITION ACTIVITY -->
     <string name="title_wiki_edition">Wiki setting</string>
     <string name="act_wiki_edition_name_label">Name</string>
